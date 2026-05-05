@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wiom System launch हो चुका है — Wiom CSP</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+  /* ════════════════════════════════════════════════════════
+     Wiom Design System — semantic tokens
+     ════════════════════════════════════════════════════════ */
+  :root {
+    --wiom-bg-default:        #FAF9FC;
+    --wiom-bg-subtle:         #F1EDF7;
+    --wiom-bg-muted:          #E8E4F0;
+    --wiom-bg-brand:          #D9008D;
+    --wiom-bg-brand-hover:    #C00080;
+    --wiom-bg-brand-pressed:  #A30070;
+    --wiom-bg-brand-bold:     #443152;
+    --wiom-bg-brand-subtle:   #FFE5F6;
+
+    --wiom-text-default:      #161021;
+    --wiom-text-subtle:       #5C5570;
+    --wiom-text-on-brand:     #FFFFFF;
+    --wiom-text-brand:        #D9008D;
+    --wiom-text-brand-hover:  #C00080;
+    --wiom-text-inverse:      #FAF9FC;
+
+    --wiom-icon-action:       #352D42;
+    --wiom-icon-brand:        #D9008D;
+    --wiom-icon-non-action:   #A7A1B2;
+    --wiom-icon-inverse:      #FAF9FC;
+
+    --wiom-stroke-default:    #E8E4F0;
+    --wiom-stroke-subtle:     #D7D3E0;
+    --wiom-stroke-brand:      #FFB2E4;
+    --wiom-stroke-brand-focus:#D9008D;
+
+    --wiom-overlay-scrim:     rgba(22,16,33,0.50);
+
+    --wiom-space-4:   4px;
+    --wiom-space-8:   8px;
+    --wiom-space-12:  12px;
+    --wiom-space-16:  16px;
+    --wiom-space-24:  24px;
+    --wiom-space-32:  32px;
+    --wiom-space-48:  48px;
+    --wiom-space-64:  64px;
+    --wiom-space-96:  96px;
+
+    --wiom-radius-medium:  12px;
+    --wiom-radius-large:   16px;
+    --wiom-radius-xlarge:  24px;
+    --wiom-radius-full:    9999px;
+
+    --wiom-stroke-small:   1px;
+    --wiom-stroke-medium:  2px;
+
+    --wiom-shadow-md: 0 2px 6px 0 rgba(0,0,0,0.15);
+    --wiom-shadow-xl: 0 8px 24px 0 rgba(0,0,0,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Noto Sans', -apple-system, system-ui, sans-serif;
+    background: var(--wiom-bg-default);
+    color: var(--wiom-text-default);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5;
+  }
+
+  .material-icons { user-select: none; vertical-align: middle; }
+
+  /* Containers */
+  .container-narrow {
+    max-width: 680px;
+    margin-inline: auto;
+    width: 100%;
+  }
+  @media (max-width: 1023px) {
+    .container-narrow { padding-inline: var(--wiom-space-24); }
+  }
+  @media (max-width: 767px) {
+    .container-narrow { padding-inline: var(--wiom-space-16); }
+  }
+
+  /* ════════════════════════════════════════════════════════
+     Top nav (brand only — PTL now lives inside point 4)
+     ════════════════════════════════════════════════════════ */
+  .topnav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--wiom-bg-default);
+    border-bottom: var(--wiom-stroke-small) solid var(--wiom-stroke-subtle);
+    padding: var(--wiom-space-16) 0;
+  }
+  .topnav-inner {
+    max-width: 680px;
+    margin-inline: auto;
+    padding-inline: var(--wiom-space-16);
+  }
+  @media (min-width: 768px) {
+    .topnav-inner { padding-inline: var(--wiom-space-24); }
+  }
+  .brand {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--wiom-text-brand);
+  }
+
+  /* ════════════════════════════════════════════════════════
+     Main + page stack
+     ════════════════════════════════════════════════════════ */
+  main { flex: 1; padding: var(--wiom-space-32) 0 var(--wiom-space-48); }
+  @media (min-width: 768px) {
+    main { padding: var(--wiom-space-64) 0 var(--wiom-space-64); }
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wiom-space-32);
+  }
+
+  /* ─── Hero ─── */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wiom-space-12);
+  }
+  .hero h1 {
+    font-size: 1.75rem;       /* 28px mobile */
+    line-height: 2.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--wiom-text-default);
+  }
+  @media (min-width: 768px) {
+    .hero h1 { font-size: 2.25rem; line-height: 2.75rem; }
+  }
+  @media (min-width: 1024px) {
+    .hero h1 { font-size: 2.5rem; line-height: 3rem; }
+  }
+  .hero .subhead {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 400;
+    color: var(--wiom-text-subtle);
+  }
+  @media (min-width: 768px) {
+    .hero .subhead { font-size: 1.125rem; line-height: 1.75rem; }
+  }
+
+  /* ─── CSP identity note (callout) ─── */
+  .note-callout {
+    display: flex;
+    gap: var(--wiom-space-12);
+    align-items: flex-start;
+    background: var(--wiom-bg-subtle);
+    border-radius: var(--wiom-radius-medium);
+    padding: var(--wiom-space-16);
+  }
+  .note-callout .material-icons {
+    font-size: 20px;
+    color: var(--wiom-icon-action);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .note-callout p {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+    color: var(--wiom-text-default);
+  }
+  .note-callout strong {
+    font-weight: 700;
+    color: var(--wiom-text-brand);
+  }
+
+  /* ─── Section heading ─── */
+  .section-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wiom-space-12);
+  }
+  .section-block h2 {
+    /* type.heading.lg — 24px / 32px / 700 */
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--wiom-text-default);
+  }
+  @media (min-width: 768px) {
+    .section-block h2 { font-size: 1.5rem; line-height: 2rem; }
+  }
+  .section-block p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 400;
+    color: var(--wiom-text-default);
+  }
+
+  /* ─── Secondary CTA (Video dekhein) ─── */
+  .cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--wiom-space-8);
+    align-self: flex-start;
+    min-height: 48px;
+    padding: var(--wiom-space-12) var(--wiom-space-24);
+    background: transparent;
+    color: var(--wiom-text-brand);
+    text-decoration: none;
+    border: var(--wiom-stroke-medium) solid var(--wiom-stroke-brand-focus);
+    border-radius: var(--wiom-radius-large);
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: background 0.12s ease, color 0.12s ease;
+    margin-top: var(--wiom-space-4);
+  }
+  .cta-secondary:hover  { background: var(--wiom-bg-brand-subtle); color: var(--wiom-text-brand-hover); }
+  .cta-secondary:active { background: var(--wiom-bg-brand-subtle); }
+  .cta-secondary:focus-visible {
+    outline: var(--wiom-stroke-medium) solid var(--wiom-stroke-brand-focus);
+    outline-offset: 2px;
+  }
+  .cta-secondary .material-icons { font-size: 20px; }
+
+  /* ─── 30-day Adjustment Window — highlighted card ─── */
+  .month-card {
+    background: var(--wiom-bg-brand-subtle);
+    border-radius: var(--wiom-radius-large);
+    padding: var(--wiom-space-24);
+    display: flex;
+    flex-direction: column;
+    gap: var(--wiom-space-16);
+  }
+  @media (min-width: 768px) {
+    .month-card { padding: var(--wiom-space-32); }
+  }
+  .month-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--wiom-space-8);
+    color: var(--wiom-text-brand);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+  .month-eyebrow .material-icons { font-size: 20px; color: var(--wiom-icon-brand); }
+  .month-card h2 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--wiom-text-default);
+  }
+  @media (min-width: 768px) {
+    .month-card h2 { font-size: 1.5rem; line-height: 2rem; }
+  }
+  .month-card .intro {
+    font-size: 0.9375rem;
+    line-height: 1.5rem;
+    font-weight: 400;
+    color: var(--wiom-text-default);
+  }
+
+  /* ─── Numbered list inside 30-day card ─── */
+  .numbered-list {
+    list-style: none;
+    counter-reset: step;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wiom-space-12);
+    margin: 0;
+    padding: 0;
+  }
+  .numbered-list li {
+    counter-increment: step;
+    position: relative;
+    padding-left: 40px;
+    min-height: 32px;
+  }
+  .numbered-list li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 28px;
+    height: 28px;
+    background: var(--wiom-bg-brand);
+    color: var(--wiom-text-on-brand);
+    border-radius: var(--wiom-radius-full);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .numbered-list li p {
+    font-size: 0.9375rem;
+    line-height: 1.5rem;
+    font-weight: 400;
+    color: var(--wiom-text-default);
+  }
+  .numbered-list li p strong {
+    font-weight: 700;
+  }
+
+  /* ─── PTL link inside point 4 ─── */
+  .ptl-action {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--wiom-space-8);
+    margin-top: var(--wiom-space-8);
+    padding: var(--wiom-space-8) var(--wiom-space-16);
+    background: var(--wiom-bg-default);
+    border: var(--wiom-stroke-small) solid var(--wiom-stroke-subtle);
+    border-radius: var(--wiom-radius-full);
+    color: var(--wiom-text-brand);
+    font-size: 0.9375rem;
+    line-height: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    min-height: 40px;
+  }
+  .ptl-action:hover { background: var(--wiom-bg-brand-subtle); }
+  .ptl-action:focus-visible {
+    outline: var(--wiom-stroke-medium) solid var(--wiom-stroke-brand-focus);
+    outline-offset: 2px;
+  }
+  .ptl-action .material-icons { font-size: 18px; color: var(--wiom-icon-brand); }
+
+  /* ─── Primary CTA ─── */
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--wiom-space-8);
+    width: 100%;
+    min-height: 48px;
+    padding: var(--wiom-space-12) var(--wiom-space-24);
+    background: var(--wiom-bg-brand);
+    color: var(--wiom-text-on-brand);
+    text-decoration: none;
+    border: none;
+    border-radius: var(--wiom-radius-large);
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: background 0.12s ease;
+    margin-top: var(--wiom-space-8);
+  }
+  .cta-primary:hover  { background: var(--wiom-bg-brand-hover); }
+  .cta-primary:active { background: var(--wiom-bg-brand-pressed); }
+  .cta-primary:focus-visible {
+    outline: var(--wiom-stroke-medium) solid var(--wiom-stroke-brand-focus);
+    outline-offset: 2px;
+  }
+  .cta-primary .material-icons { font-size: 20px; }
+
+  /* ─── Footer (always bg.brand.bold) ─── */
+  footer {
+    background: var(--wiom-bg-brand-bold);
+    color: var(--wiom-text-inverse);
+    padding: var(--wiom-space-32) 0;
+    margin-top: var(--wiom-space-48);
+  }
+  @media (min-width: 768px) {
+    footer { padding: var(--wiom-space-48) 0; margin-top: var(--wiom-space-64); }
+  }
+  .footer-inner {
+    max-width: 680px;
+    margin-inline: auto;
+    padding-inline: var(--wiom-space-16);
+    display: flex;
+    flex-direction: column;
+    gap: var(--wiom-space-12);
+  }
+  @media (min-width: 768px) {
+    .footer-inner { padding-inline: var(--wiom-space-24); }
+  }
+  .footer-tech {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 400;
+    color: rgba(255,255,255,0.6);
+  }
+  .footer-tagline {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 700;
+    color: var(--wiom-text-on-brand);
+  }
+
+  /* ─── Video modal ─── */
+  .video-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: var(--wiom-overlay-scrim);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: var(--wiom-space-16);
+  }
+  .video-modal.is-open { display: flex; }
+  .video-modal-card {
+    background: #000;
+    border-radius: var(--wiom-radius-xlarge);
+    width: 100%;
+    max-width: 720px;
+    box-shadow: var(--wiom-shadow-xl);
+    overflow: hidden;
+    position: relative;
+  }
+  .video-modal-card video {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .video-modal-close {
+    position: absolute;
+    top: var(--wiom-space-8);
+    right: var(--wiom-space-8);
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: var(--wiom-radius-full);
+    background: rgba(0,0,0,0.6);
+    color: var(--wiom-icon-inverse);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+  .video-modal-close:hover { background: rgba(0,0,0,0.8); }
+  .video-modal-close:focus-visible {
+    outline: var(--wiom-stroke-medium) solid #FFFFFF;
+    outline-offset: 2px;
+  }
+  .video-modal-close .material-icons { font-size: 24px; }
+</style>
+</head>
+<body>
+
+<!-- Top nav: brand only -->
+<header class="topnav">
+  <div class="topnav-inner">
+    <div class="brand">Wiom</div>
+  </div>
+</header>
+
+<main>
+  <div class="container-narrow">
+    <div class="stack">
+
+      <!-- 1. Hero -->
+      <section class="hero">
+        <h1>Wiom System launch हो चुका है।</h1>
+        <p class="subhead">नया system, नया app, कुछ नए terms।</p>
+      </section>
+
+      <!-- 2. CSP identity note -->
+      <aside class="note-callout">
+        <span class="material-icons" aria-hidden="true">info</span>
+        <p>System में आपकी identity अब <strong>"CSP"</strong> (Connection Service Provider) है। App और हर जगह इसी नाम से होगी।</p>
+      </aside>
+
+      <!-- 3. Updates section -->
+      <section class="section-block">
+        <h2>नए System में क्या updates हैं?</h2>
+        <p>Bonus का तरीका, payouts, NetBox, customer plans — पूरी detail एक video में है। हर चीज़ एक जगह, एक बार में।</p>
+        <button class="cta-secondary" id="know-more-btn" aria-haspopup="dialog">
+          <span class="material-icons" aria-hidden="true">play_circle</span>
+          <span>Video देखें</span>
+        </button>
+      </section>
+
+      <!-- 4. 30-day Adjustment Window — highlighted -->
+      <section class="month-card">
+        <div class="month-eyebrow">
+          <span class="material-icons" aria-hidden="true">schedule</span>
+          <span>30 दिन</span>
+        </div>
+        <h2>30-दिन का Adjustment Window</h2>
+        <p class="intro">नए app और नए system के लिए <strong>30-दिन का adjustment window</strong> active है। इन 30 दिनों में:</p>
+
+        <ol class="numbered-list">
+          <li>
+            <p>आपको app समझने का <strong>पूरा समय</strong> मिलेगा।</p>
+          </li>
+          <li>
+            <p>नए system अनुसार पैसे से जुड़ी कोई भी चीज़ — bonus, carry fee, etc — <strong>अभी activate नहीं</strong> है। 30 दिन के बाद शुरू होगी।</p>
+          </li>
+          <li>
+            <p>App खुद हर step पर दिखाएगा क्या हो रहा है और क्या करना है। अलग से सीखने की ज़रूरत नहीं — use करते-करते समझ आ जाएगा।</p>
+          </li>
+          <li>
+            <p>कोई सवाल या दिक्कत हो तो support team available है।</p>
+            <a href="tel:7836811111" class="ptl-action">
+              <span class="material-icons" aria-hidden="true">call</span>
+              <span>78368-11111</span>
+            </a>
+          </li>
+        </ol>
+      </section>
+
+      <!-- 5. Final Primary CTA -->
+      <a href="#" class="cta-primary" id="download-cta">
+        <span class="material-icons" aria-hidden="true">system_update</span>
+        <span>नया App Update करें</span>
+      </a>
+
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-tech">Technician को अलग link भेजा जा रहा है।</p>
+    <p class="footer-tagline">Wiom — रिचार्ज वाला घर का net</p>
+  </div>
+</footer>
+
+<!-- Video modal -->
+<div class="video-modal" id="video-modal" role="dialog" aria-modal="true" aria-label="Wiom System video">
+  <div class="video-modal-card">
+    <button class="video-modal-close" id="video-close" aria-label="Close video">
+      <span class="material-icons" aria-hidden="true">close</span>
+    </button>
+    <video id="video-el" controls preload="metadata" playsinline>
+      <source src="Wiom_System_Updates_v2.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('video-modal');
+  const openBtn = document.getElementById('know-more-btn');
+  const closeBtn = document.getElementById('video-close');
+  const video = document.getElementById('video-el');
+
+  openBtn.addEventListener('click', () => {
+    modal.classList.add('is-open');
+    video.currentTime = 0;
+    video.play().catch(() => {});
+  });
+
+  function closeModal() {
+    modal.classList.remove('is-open');
+    video.pause();
+  }
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+</script>
+
+</body>
+</html>
