@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ऐप इनस्टॉल हो गयी है — Wiom CSP</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+  :root {
+    --wiom-bg-default:        #FAF9FC;
+    --wiom-bg-subtle:         #F1EDF7;
+    --wiom-bg-muted:          #E8E4F0;
+    --wiom-bg-brand:          #D9008D;
+    --wiom-bg-brand-hover:    #C00080;
+    --wiom-bg-brand-pressed:  #A30070;
+    --wiom-bg-brand-bold:     #443152;
+    --wiom-bg-brand-subtle:   #FFE5F6;
+    --wiom-bg-positive-subtle:#E1FAED;
+    --wiom-bg-positive:       #008043;
+
+    --wiom-text-default:      #161021;
+    --wiom-text-subtle:       #5C5570;
+    --wiom-text-on-brand:     #FFFFFF;
+    --wiom-text-brand:        #D9008D;
+    --wiom-text-positive:     #008043;
+    --wiom-text-on-positive:  #FFFFFF;
+    --wiom-text-inverse:      #FAF9FC;
+
+    --wiom-icon-positive:     #008043;
+    --wiom-icon-inverse:      #FAF9FC;
+
+    --wiom-stroke-subtle:     #D7D3E0;
+    --wiom-stroke-positive:   #A5E5C6;
+    --wiom-stroke-brand-focus:#D9008D;
+
+    --wiom-space-4:   4px;
+    --wiom-space-8:   8px;
+    --wiom-space-12:  12px;
+    --wiom-space-16:  16px;
+    --wiom-space-24:  24px;
+    --wiom-space-32:  32px;
+    --wiom-space-48:  48px;
+    --wiom-space-64:  64px;
+    --wiom-space-96:  96px;
+
+    --wiom-radius-medium:  12px;
+    --wiom-radius-large:   16px;
+    --wiom-radius-full:    9999px;
+
+    --wiom-stroke-small:   1px;
+    --wiom-stroke-medium:  2px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Noto Sans', -apple-system, system-ui, sans-serif;
+    background: var(--wiom-bg-default);
+    color: var(--wiom-text-default);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5;
+  }
+
+  .material-icons { user-select: none; vertical-align: middle; }
+
+  .container-narrow {
+    max-width: 680px;
+    margin-inline: auto;
+    width: 100%;
+  }
+  @media (max-width: 1023px) {
+    .container-narrow { padding-inline: var(--wiom-space-24); }
+  }
+  @media (max-width: 767px) {
+    .container-narrow { padding-inline: var(--wiom-space-16); }
+  }
+
+  /* ─── Top nav ─── */
+  .topnav {
+    background: var(--wiom-bg-default);
+    border-bottom: var(--wiom-stroke-small) solid var(--wiom-stroke-subtle);
+    padding: var(--wiom-space-16) 0;
+  }
+  .topnav-inner {
+    max-width: 680px;
+    margin-inline: auto;
+    padding-inline: var(--wiom-space-16);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--wiom-space-12);
+  }
+  @media (min-width: 768px) {
+    .topnav-inner { padding-inline: var(--wiom-space-24); }
+  }
+  .brand {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--wiom-text-brand);
+  }
+
+  /* Language toggle */
+  .lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    background: var(--wiom-bg-default);
+    border: 1px solid var(--wiom-stroke-subtle);
+    border-radius: var(--wiom-radius-full);
+    padding: 3px;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+  .lang-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    min-height: 28px;
+    padding: 4px 10px;
+    border-radius: var(--wiom-radius-full);
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--wiom-text-subtle);
+    transition: background 0.12s, color 0.12s;
+  }
+  .lang-btn:hover { color: var(--wiom-text-default); }
+  .lang-btn.active {
+    background: var(--wiom-bg-brand);
+    color: var(--wiom-text-on-brand);
+  }
+
+  /* ─── Main content ─── */
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: var(--wiom-space-32) 0 var(--wiom-space-48);
+  }
+  @media (min-width: 768px) {
+    main { padding: var(--wiom-space-64) 0; }
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wiom-space-48);
+  }
+
+  /* ─── Step 1: Install success ─── */
+  .success-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--wiom-space-24);
+    text-align: center;
+  }
+  .success-circle {
+    width: 120px;
+    height: 120px;
+    background: var(--wiom-bg-positive);
+    border-radius: var(--wiom-radius-full);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(0,128,67,0.20);
+  }
+  .success-circle .material-icons {
+    font-size: 64px;
+    color: var(--wiom-icon-inverse);
+  }
+  .success-block h1 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+    color: var(--wiom-text-default);
+    max-width: 320px;
+  }
+  @media (min-width: 768px) {
+    .success-block h1 { font-size: 1.75rem; line-height: 2.25rem; }
+  }
+
+  /* ─── Step 2: Open app prompt ─── */
+  .open-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--wiom-space-24);
+    padding: var(--wiom-space-24);
+    background: var(--wiom-bg-brand-subtle);
+    border-radius: var(--wiom-radius-large);
+    text-align: center;
+  }
+  @media (min-width: 768px) {
+    .open-block { padding: var(--wiom-space-32); }
+  }
+  .open-block h2 {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+    font-weight: 700;
+    color: var(--wiom-text-default);
+    max-width: 400px;
+  }
+  @media (min-width: 768px) {
+    .open-block h2 { font-size: 1.25rem; line-height: 1.75rem; }
+  }
+  .app-icon {
+    width: 88px;
+    height: 88px;
+    background: var(--wiom-bg-default);
+    border: 2px solid var(--wiom-bg-brand);
+    border-radius: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .app-icon-mark {
+    font-size: 26px;
+    color: var(--wiom-text-brand);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .app-icon-name {
+    font-size: 0.5rem;
+    line-height: 0.6rem;
+    font-weight: 700;
+    color: var(--wiom-text-default);
+    text-align: center;
+  }
+
+  /* ─── Primary CTA ─── */
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--wiom-space-8);
+    width: 100%;
+    min-height: 48px;
+    padding: var(--wiom-space-12) var(--wiom-space-24);
+    background: var(--wiom-bg-brand);
+    color: var(--wiom-text-on-brand);
+    text-decoration: none;
+    border: none;
+    border-radius: var(--wiom-radius-large);
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: background 0.12s ease;
+  }
+  .cta-primary:hover  { background: var(--wiom-bg-brand-hover); }
+  .cta-primary:active { background: var(--wiom-bg-brand-pressed); }
+  .cta-primary:focus-visible {
+    outline: var(--wiom-stroke-medium) solid var(--wiom-stroke-brand-focus);
+    outline-offset: 2px;
+  }
+  .cta-primary .material-icons { font-size: 20px; }
+
+  /* ─── Footer ─── */
+  footer {
+    background: var(--wiom-bg-brand-bold);
+    color: var(--wiom-text-inverse);
+    padding: var(--wiom-space-32) 0;
+    margin-top: var(--wiom-space-48);
+  }
+  @media (min-width: 768px) {
+    footer { padding: var(--wiom-space-48) 0; margin-top: var(--wiom-space-64); }
+  }
+  .footer-inner {
+    max-width: 680px;
+    margin-inline: auto;
+    padding-inline: var(--wiom-space-16);
+  }
+  @media (min-width: 768px) {
+    .footer-inner { padding-inline: var(--wiom-space-24); }
+  }
+  .footer-tagline {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 700;
+    color: var(--wiom-text-on-brand);
+  }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div class="topnav-inner">
+    <div class="brand">Wiom</div>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <a href="download-success.html" class="lang-btn active" aria-current="page">हिं</a>
+      <a href="download-success-en.html" class="lang-btn">EN</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container-narrow">
+    <div class="stack">
+
+      <!-- Step 1: Install success -->
+      <section class="success-block" aria-live="polite">
+        <div class="success-circle" aria-hidden="true">
+          <span class="material-icons">check</span>
+        </div>
+        <h1>Wiom Partner Plus ऐप इनस्टॉल हो गयी है</h1>
+      </section>
+
+      <!-- Step 2: Open app prompt -->
+      <section class="open-block">
+        <div class="app-icon" aria-hidden="true">
+          <div class="app-icon-mark">∞</div>
+          <div class="app-icon-name">Partner Plus</div>
+        </div>
+        <h2>अपना बिज़नेस बढ़ाने के लिए अभी Wiom Partner Plus ऐप खोलें</h2>
+        <a href="#" class="cta-primary" id="open-app-cta">
+          <span class="material-icons" aria-hidden="true">launch</span>
+          <span>ऐप खोलें</span>
+        </a>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-tagline">Wiom — रिचार्ज वाला घर का नेट</p>
+  </div>
+</footer>
+
+</body>
+</html>
