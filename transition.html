@@ -77,60 +77,6 @@
     line-height: 1.5;
   }
 
-  /* ════════════════════════════════════════════════════════
-     Phone-frame preview wrapper (desktop only)
-     On mobile/tablet → no frame, full-screen real CSP experience
-     On desktop ≥1024px → centered phone mockup with scrollable inner content
-     ════════════════════════════════════════════════════════ */
-  .phone-preview-frame {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  .phone-screen {
-    width: 100%;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    /* Container query context — inner content responds to this element's
-       width, not the browser viewport. So inside a 390px phone frame on
-       a 1920px desktop, content still uses mobile-styled rules. */
-    container-type: inline-size;
-    container-name: screen;
-  }
-
-  @media (min-width: 1024px) {
-    body {
-      background: var(--wiom-bg-subtle);
-      padding: 32px 16px;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    .phone-preview-frame {
-      width: 390px;
-      height: 844px;
-      min-height: 844px;
-      max-height: 844px;
-      background: #1E1E1E;
-      border-radius: 44px;
-      padding: 8px;
-      box-shadow: 0 24px 64px rgba(22,16,33,0.20);
-      flex-shrink: 0;
-    }
-    .phone-screen {
-      width: 100%;
-      height: 100%;
-      background: var(--wiom-bg-default);
-      border-radius: 36px;
-      overflow-y: auto;
-      overflow-x: hidden;
-      flex: none;
-      scrollbar-width: thin;
-    }
-    .phone-screen::-webkit-scrollbar { width: 4px; }
-    .phone-screen::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 999px; }
-  }
 
   .material-icons { user-select: none; vertical-align: middle; }
 
@@ -163,7 +109,7 @@
     margin-inline: auto;
     padding-inline: var(--wiom-space-16);
   }
-  @container screen (min-width: 768px) {
+  @media (min-width: 768px) {
     .topnav-inner { padding-inline: var(--wiom-space-24); }
   }
   .brand {
@@ -178,7 +124,7 @@
      Main + page stack
      ════════════════════════════════════════════════════════ */
   main { flex: 1; padding: var(--wiom-space-32) 0 var(--wiom-space-48); }
-  @container screen (min-width: 768px) {
+  @media (min-width: 768px) {
     main { padding: var(--wiom-space-64) 0 var(--wiom-space-64); }
   }
 
@@ -201,10 +147,10 @@
     letter-spacing: -0.02em;
     color: var(--wiom-text-default);
   }
-  @container screen (min-width: 768px) {
+  @media (min-width: 768px) {
     .hero h1 { font-size: 2.25rem; line-height: 2.75rem; }
   }
-  @container screen (min-width: 1024px) {
+  @media (min-width: 1024px) {
     .hero h1 { font-size: 2.5rem; line-height: 3rem; }
   }
   .hero .subhead {
@@ -213,7 +159,7 @@
     font-weight: 400;
     color: var(--wiom-text-subtle);
   }
-  @container screen (min-width: 768px) {
+  @media (min-width: 768px) {
     .hero .subhead { font-size: 1.125rem; line-height: 1.75rem; }
   }
 
@@ -257,7 +203,7 @@
     letter-spacing: -0.01em;
     color: var(--wiom-text-default);
   }
-  @container screen (min-width: 768px) {
+  @media (min-width: 768px) {
     .section-block h2 { font-size: 1.5rem; line-height: 2rem; }
   }
   .section-block p {
@@ -306,7 +252,7 @@
     flex-direction: column;
     gap: var(--wiom-space-16);
   }
-  @container screen (min-width: 768px) {
+  @media (min-width: 768px) {
     .month-card { padding: var(--wiom-space-32); }
   }
   .month-eyebrow {
@@ -328,7 +274,7 @@
     letter-spacing: -0.01em;
     color: var(--wiom-text-default);
   }
-  @container screen (min-width: 768px) {
+  @media (min-width: 768px) {
     .month-card h2 { font-size: 1.5rem; line-height: 2rem; }
   }
   .month-card .intro {
@@ -442,7 +388,7 @@
     padding: var(--wiom-space-32) 0;
     margin-top: var(--wiom-space-48);
   }
-  @container screen (min-width: 768px) {
+  @media (min-width: 768px) {
     footer { padding: var(--wiom-space-48) 0; margin-top: var(--wiom-space-64); }
   }
   .footer-inner {
@@ -453,7 +399,7 @@
     flex-direction: column;
     gap: var(--wiom-space-12);
   }
-  @container screen (min-width: 768px) {
+  @media (min-width: 768px) {
     .footer-inner { padding-inline: var(--wiom-space-24); }
   }
   .footer-tech {
@@ -521,9 +467,6 @@
 </head>
 <body>
 
-<div class="phone-preview-frame">
-  <div class="phone-screen">
-
 <!-- Top nav: brand only -->
 <header class="topnav">
   <div class="topnav-inner">
@@ -537,7 +480,7 @@
 
       <!-- 1. Hero -->
       <section class="hero">
-        <h1>Wiom System launch हो चुका है।</h1>
+        <h1>नया App नए System में live है।</h1>
         <p class="subhead">नया system, नया app।</p>
       </section>
 
@@ -603,9 +546,6 @@
     <p class="footer-tagline">Wiom — रिचार्ज वाला घर का net</p>
   </div>
 </footer>
-
-  </div><!-- /.phone-screen -->
-</div><!-- /.phone-preview-frame -->
 
 <!-- Video modal -->
 <div class="video-modal" id="video-modal" role="dialog" aria-modal="true" aria-label="Wiom System video">
