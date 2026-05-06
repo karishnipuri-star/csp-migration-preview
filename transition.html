@@ -93,6 +93,11 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    /* Container query context — inner content responds to this element's
+       width, not the browser viewport. So inside a 390px phone frame on
+       a 1920px desktop, content still uses mobile-styled rules. */
+    container-type: inline-size;
+    container-name: screen;
   }
 
   @media (min-width: 1024px) {
@@ -158,7 +163,7 @@
     margin-inline: auto;
     padding-inline: var(--wiom-space-16);
   }
-  @media (min-width: 768px) {
+  @container screen (min-width: 768px) {
     .topnav-inner { padding-inline: var(--wiom-space-24); }
   }
   .brand {
@@ -173,7 +178,7 @@
      Main + page stack
      ════════════════════════════════════════════════════════ */
   main { flex: 1; padding: var(--wiom-space-32) 0 var(--wiom-space-48); }
-  @media (min-width: 768px) {
+  @container screen (min-width: 768px) {
     main { padding: var(--wiom-space-64) 0 var(--wiom-space-64); }
   }
 
@@ -196,10 +201,10 @@
     letter-spacing: -0.02em;
     color: var(--wiom-text-default);
   }
-  @media (min-width: 768px) {
+  @container screen (min-width: 768px) {
     .hero h1 { font-size: 2.25rem; line-height: 2.75rem; }
   }
-  @media (min-width: 1024px) {
+  @container screen (min-width: 1024px) {
     .hero h1 { font-size: 2.5rem; line-height: 3rem; }
   }
   .hero .subhead {
@@ -208,7 +213,7 @@
     font-weight: 400;
     color: var(--wiom-text-subtle);
   }
-  @media (min-width: 768px) {
+  @container screen (min-width: 768px) {
     .hero .subhead { font-size: 1.125rem; line-height: 1.75rem; }
   }
 
@@ -252,7 +257,7 @@
     letter-spacing: -0.01em;
     color: var(--wiom-text-default);
   }
-  @media (min-width: 768px) {
+  @container screen (min-width: 768px) {
     .section-block h2 { font-size: 1.5rem; line-height: 2rem; }
   }
   .section-block p {
@@ -301,7 +306,7 @@
     flex-direction: column;
     gap: var(--wiom-space-16);
   }
-  @media (min-width: 768px) {
+  @container screen (min-width: 768px) {
     .month-card { padding: var(--wiom-space-32); }
   }
   .month-eyebrow {
@@ -323,7 +328,7 @@
     letter-spacing: -0.01em;
     color: var(--wiom-text-default);
   }
-  @media (min-width: 768px) {
+  @container screen (min-width: 768px) {
     .month-card h2 { font-size: 1.5rem; line-height: 2rem; }
   }
   .month-card .intro {
@@ -437,7 +442,7 @@
     padding: var(--wiom-space-32) 0;
     margin-top: var(--wiom-space-48);
   }
-  @media (min-width: 768px) {
+  @container screen (min-width: 768px) {
     footer { padding: var(--wiom-space-48) 0; margin-top: var(--wiom-space-64); }
   }
   .footer-inner {
@@ -448,7 +453,7 @@
     flex-direction: column;
     gap: var(--wiom-space-12);
   }
-  @media (min-width: 768px) {
+  @container screen (min-width: 768px) {
     .footer-inner { padding-inline: var(--wiom-space-24); }
   }
   .footer-tech {
