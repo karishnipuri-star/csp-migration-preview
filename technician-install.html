@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wiom Technician ऐप — Install</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+  :root {
+    --wiom-bg-default:        #FAF9FC;
+    --wiom-bg-subtle:         #F1EDF7;
+    --wiom-bg-brand:          #D9008D;
+    --wiom-bg-brand-hover:    #C00080;
+    --wiom-bg-brand-pressed:  #A30070;
+    --wiom-bg-brand-bold:     #443152;
+    --wiom-bg-brand-subtle:   #FFE5F6;
+    --wiom-bg-positive:       #19A05A;
+
+    --wiom-text-default:      #161021;
+    --wiom-text-subtle:       #5C5570;
+    --wiom-text-on-brand:     #FFFFFF;
+    --wiom-text-brand:        #D9008D;
+    --wiom-text-inverse:      #FAF9FC;
+
+    --wiom-icon-inverse:      #FAF9FC;
+
+    --wiom-stroke-subtle:     #D7D3E0;
+    --wiom-stroke-brand-focus:#D9008D;
+
+    --wiom-space-4:   4px;
+    --wiom-space-8:   8px;
+    --wiom-space-12:  12px;
+    --wiom-space-16:  16px;
+    --wiom-space-24:  24px;
+    --wiom-space-32:  32px;
+    --wiom-space-48:  48px;
+    --wiom-space-64:  64px;
+
+    --wiom-radius-medium:  12px;
+    --wiom-radius-large:   16px;
+    --wiom-radius-full:    9999px;
+
+    --wiom-stroke-medium:  2px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Noto Sans', -apple-system, system-ui, sans-serif;
+    background: var(--wiom-bg-default);
+    color: var(--wiom-text-default);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5;
+  }
+  .material-icons { user-select: none; vertical-align: middle; }
+
+  /* Top bar */
+  .topbar { padding: var(--wiom-space-16) 0; }
+  .topbar-inner {
+    max-width: 680px;
+    margin-inline: auto;
+    padding-inline: var(--wiom-space-16);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--wiom-space-12);
+  }
+  @media (min-width: 768px) {
+    .topbar-inner { padding-inline: var(--wiom-space-24); }
+  }
+  .role-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--wiom-text-subtle);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .help-link {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 700;
+    color: var(--wiom-text-brand);
+    text-decoration: none;
+  }
+  .help-link:hover { color: var(--wiom-bg-brand-hover); }
+
+  main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--wiom-space-16) var(--wiom-space-24) var(--wiom-space-32);
+  }
+  .container-narrow {
+    max-width: 520px;
+    width: 100%;
+  }
+
+  /* States */
+  .state {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--wiom-space-32);
+    text-align: center;
+    animation: fadeIn 0.4s ease-out;
+  }
+  .state.is-active { display: flex; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* State 1 — Loader */
+  .loader-circle {
+    width: 96px;
+    height: 96px;
+    border: 6px solid var(--wiom-bg-subtle);
+    border-top-color: var(--wiom-bg-brand);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .state .label {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    color: var(--wiom-text-default);
+  }
+
+  /* State 2 — Install success */
+  .check-circle {
+    width: 156px;
+    height: 156px;
+    background: var(--wiom-bg-positive);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 32px rgba(25, 160, 90, 0.22);
+    animation: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes pop {
+    0%   { transform: scale(0.4); opacity: 0; }
+    70%  { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .check-circle .material-icons {
+    color: white;
+    font-size: 96px;
+    font-weight: 700;
+  }
+  .state .heading {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+    color: var(--wiom-text-default);
+    max-width: 360px;
+  }
+
+  /* State 3 — Open prompt */
+  .open-heading {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+    color: var(--wiom-text-default);
+  }
+  @media (min-width: 768px) {
+    .open-heading { font-size: 1.25rem; }
+  }
+
+  /* Phone mockup */
+  .phone-mock {
+    width: 260px;
+    background: #1E1E1E;
+    border-radius: 32px;
+    padding: 8px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.22);
+  }
+  .phone-mock-screen {
+    border-radius: 26px;
+    background: linear-gradient(135deg, #FF7AB0 0%, #FFB388 50%, #B89BFF 100%);
+    padding: 8px 6px 12px;
+    position: relative;
+  }
+  .phone-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-size: 9px;
+    font-weight: 600;
+    padding: 2px 6px 6px;
+  }
+  .phone-status .right {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .phone-status .right .material-icons { font-size: 10px; color: white; }
+  .phone-search {
+    background: rgba(255,255,255,0.95);
+    border-radius: 20px;
+    padding: 6px 10px;
+    font-size: 9px;
+    color: var(--wiom-text-subtle);
+    margin: 4px 4px 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .phone-search .material-icons { font-size: 12px; }
+  .app-grid-mock {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    padding: 0 4px;
+  }
+  .app-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 4px 2px;
+    border-radius: 8px;
+  }
+  .app-tile-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  }
+  .app-tile-label {
+    font-size: 8px;
+    line-height: 9px;
+    color: white;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .app-tile.highlighted {
+    background: white;
+    border-radius: 14px;
+    padding: 6px 4px;
+    box-shadow: 0 6px 16px rgba(217,0,141,0.30);
+    transform: scale(1.05);
+  }
+  .app-tile.highlighted .app-tile-icon {
+    background: #1E1E1E;
+    flex-direction: column;
+    font-size: 14px;
+    color: var(--wiom-bg-brand);
+    line-height: 1;
+  }
+  .app-tile.highlighted .app-tile-icon .label {
+    font-size: 7px;
+    font-weight: 700;
+    color: white;
+    margin-top: 1px;
+    letter-spacing: 0.5px;
+  }
+  .app-tile.highlighted .app-tile-label {
+    color: var(--wiom-text-default);
+    font-weight: 700;
+    text-shadow: none;
+  }
+
+  /* Sticky CTA */
+  .cta-wrap {
+    position: sticky;
+    bottom: 0;
+    background: linear-gradient(to top, var(--wiom-bg-default) 75%, transparent);
+    padding: var(--wiom-space-16) var(--wiom-space-16) var(--wiom-space-24);
+  }
+  @media (min-width: 768px) {
+    .cta-wrap { padding-inline: var(--wiom-space-24); }
+  }
+  .cta-wrap .cta-primary {
+    max-width: 520px;
+    margin: 0 auto;
+    display: flex;
+  }
+  .cta-primary {
+    align-items: center;
+    justify-content: center;
+    gap: var(--wiom-space-8);
+    width: 100%;
+    min-height: 56px;
+    padding: var(--wiom-space-16) var(--wiom-space-24);
+    background: var(--wiom-bg-brand);
+    color: var(--wiom-text-on-brand);
+    text-decoration: none;
+    border: none;
+    border-radius: var(--wiom-radius-full);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(217, 0, 141, 0.20);
+    transition: background 0.12s ease;
+  }
+  .cta-primary:hover  { background: var(--wiom-bg-brand-hover); }
+  .cta-primary:active { background: var(--wiom-bg-brand-pressed); }
+  .cta-primary:focus-visible {
+    outline: var(--wiom-stroke-medium) solid var(--wiom-stroke-brand-focus);
+    outline-offset: 2px;
+  }
+  body:not(.state-3-active) .cta-wrap { display: none; }
+</style>
+</head>
+<body class="state-1-active">
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <span class="role-tag">Technician</span>
+    <a href="tel:7836811111" class="help-link">मदद</a>
+  </div>
+</header>
+
+<main>
+  <div class="container-narrow">
+
+    <!-- State 1: Loading -->
+    <section class="state is-active" id="state-1" aria-live="polite">
+      <div class="loader-circle" aria-hidden="true"></div>
+      <p class="label">डाउनलोड हो रहा है...</p>
+    </section>
+
+    <!-- State 2: Install success -->
+    <section class="state" id="state-2" aria-live="polite">
+      <div class="check-circle" aria-hidden="true">
+        <span class="material-icons">check</span>
+      </div>
+      <h1 class="heading">Wiom Technician ऐप इनस्टॉल हो गयी है</h1>
+    </section>
+
+    <!-- State 3: Open app prompt with phone mockup -->
+    <section class="state" id="state-3" aria-live="polite">
+      <h1 class="open-heading">Technician ऐप इनस्टॉल हो गयी है</h1>
+
+      <div class="phone-mock" aria-hidden="true">
+        <div class="phone-mock-screen">
+          <div class="phone-status">
+            <span class="left">12:44 ⓘ</span>
+            <span class="right">
+              <span class="material-icons">network_wifi</span>
+              <span class="material-icons">signal_cellular_4_bar</span>
+              <span>69%</span>
+              <span class="material-icons">battery_full</span>
+            </span>
+          </div>
+          <div class="phone-search">
+            <span class="material-icons">search</span>
+            <span>Search for apps on this device</span>
+          </div>
+          <div class="app-grid-mock">
+            <div class="app-tile"><span class="app-tile-icon" style="background:#3B82F6">T</span><span class="app-tile-label">Truecaller</span></div>
+            <div class="app-tile"><span class="app-tile-icon" style="background:#F97316">T</span><span class="app-tile-label">Turbo VPN</span></div>
+            <div class="app-tile"><span class="app-tile-icon" style="background:#1E1E1E">U</span><span class="app-tile-label">Uber</span></div>
+            <div class="app-tile"><span class="app-tile-icon" style="background:#9333EA">U</span><span class="app-tile-label">Udemy</span></div>
+
+            <div class="app-tile"><span class="app-tile-icon" style="background:#1E1E1E">UC</span><span class="app-tile-label">Urban Co.</span></div>
+            <div class="app-tile highlighted">
+              <span class="app-tile-icon">∞<span class="label">Wiom</span></span>
+              <span class="app-tile-label">Wiom Technician</span>
+            </div>
+            <div class="app-tile"><span class="app-tile-icon" style="background:#EA580C">VLC</span><span class="app-tile-label">VLC</span></div>
+            <div class="app-tile"><span class="app-tile-icon" style="background:#EF4444">V</span><span class="app-tile-label">Vyom</span></div>
+
+            <div class="app-tile"><span class="app-tile-icon" style="background:#06B6D4">🎨</span><span class="app-tile-label">Wallpapers</span></div>
+            <div class="app-tile"><span class="app-tile-icon" style="background:#0EA5E9">W</span><span class="app-tile-label">WazirX</span></div>
+            <div class="app-tile"><span class="app-tile-icon" style="background:#0284C7">☁</span><span class="app-tile-label">Weather</span></div>
+            <div class="app-tile"><span class="app-tile-icon" style="background:#16A34A">📱</span><span class="app-tile-label">WhatsApp</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- Sticky CTA only visible in state 3
+     PRODUCTION: replace href with the Wiom Technician app's Branch deep link.
+                 (Get the right link from the technician app's Branch dashboard.)
+-->
+<div class="cta-wrap">
+  <a href="#" class="cta-primary" id="open-app-cta">
+    <span>Wiom Technician ऐप खोलें</span>
+  </a>
+</div>
+
+<script>
+  const body = document.body;
+  const states = {
+    1: document.getElementById('state-1'),
+    2: document.getElementById('state-2'),
+    3: document.getElementById('state-3')
+  };
+  function show(n) {
+    body.classList.remove('state-1-active', 'state-2-active', 'state-3-active');
+    body.classList.add('state-' + n + '-active');
+    Object.values(states).forEach(el => el.classList.remove('is-active'));
+    states[n].classList.add('is-active');
+  }
+  if (location.hash === '#installed') {
+    show(3);
+  } else {
+    setTimeout(() => show(2), 1800);
+    setTimeout(() => show(3), 4000);
+  }
+</script>
+
+</body>
+</html>

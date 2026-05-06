@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>नया Wiom ऐप — Technician Blocker Preview</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+  :root {
+    --wiom-bg-default:        #FAF9FC;
+    --wiom-bg-subtle:         #F1EDF7;
+    --wiom-bg-muted:          #E8E4F0;
+    --wiom-bg-brand:          #D9008D;
+    --wiom-bg-brand-hover:    #C00080;
+    --wiom-bg-brand-pressed:  #A30070;
+
+    --wiom-text-default:      #161021;
+    --wiom-text-subtle:       #5C5570;
+    --wiom-text-on-brand:     #FFFFFF;
+    --wiom-text-brand:        #D9008D;
+
+    --wiom-stroke-subtle:     #D7D3E0;
+    --wiom-stroke-brand-focus:#D9008D;
+
+    --wiom-overlay-scrim:     rgba(22,16,33,0.50);
+
+    --wiom-space-4:   4px;
+    --wiom-space-8:   8px;
+    --wiom-space-12:  12px;
+    --wiom-space-16:  16px;
+    --wiom-space-24:  24px;
+    --wiom-space-32:  32px;
+
+    --wiom-radius-medium:  12px;
+    --wiom-radius-large:   16px;
+    --wiom-radius-xlarge:  24px;
+    --wiom-radius-full:    9999px;
+
+    --wiom-stroke-medium:  2px;
+
+    --wiom-shadow-xl: 0 8px 24px 0 rgba(0,0,0,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans', -apple-system, system-ui, sans-serif;
+    background: var(--wiom-bg-subtle);
+    color: var(--wiom-text-default);
+    min-height: 100vh;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--wiom-space-16) var(--wiom-space-16) var(--wiom-space-24);
+    gap: var(--wiom-space-16);
+  }
+
+  .material-icons { user-select: none; vertical-align: middle; }
+
+  .lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    background: var(--wiom-bg-default);
+    border: 1px solid var(--wiom-stroke-subtle);
+    border-radius: var(--wiom-radius-full);
+    padding: 4px;
+    gap: 2px;
+  }
+  .lang-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 32px;
+    padding: 4px 12px;
+    border-radius: var(--wiom-radius-full);
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--wiom-text-subtle);
+    transition: background 0.12s, color 0.12s;
+  }
+  .lang-btn:hover { color: var(--wiom-text-default); }
+  .lang-btn.active {
+    background: var(--wiom-bg-brand);
+    color: var(--wiom-text-on-brand);
+  }
+
+  .phone-frame {
+    width: 360px;
+    max-width: 100%;
+    aspect-ratio: 9 / 16;
+    background: #000;
+    border-radius: 32px;
+    padding: 8px;
+    box-shadow: 0 16px 48px rgba(22,16,33,0.18);
+  }
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    background: var(--wiom-bg-default);
+    border-radius: 26px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .old-app-faux {
+    position: absolute;
+    inset: 0;
+    background: var(--wiom-bg-default);
+    padding: 48px 16px 16px;
+    z-index: 1;
+  }
+  .old-app-faux .faux-row {
+    height: 56px;
+    background: var(--wiom-bg-muted);
+    border-radius: var(--wiom-radius-medium);
+    margin-bottom: 12px;
+  }
+  .old-app-faux .faux-row:nth-child(2) { width: 70%; }
+  .old-app-faux .faux-row:nth-child(3) { width: 85%; }
+  .old-app-faux .faux-row:nth-child(4) { width: 60%; }
+
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--wiom-overlay-scrim);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--wiom-space-16);
+  }
+
+  .blocker {
+    width: 100%;
+    background: var(--wiom-bg-default);
+    border-radius: var(--wiom-radius-xlarge);
+    padding: var(--wiom-space-24) var(--wiom-space-24) var(--wiom-space-16);
+    box-shadow: var(--wiom-shadow-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--wiom-space-16);
+  }
+
+  .blocker-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wiom-space-12);
+  }
+
+  .blocker h2 {
+    font-size: 1.375rem;
+    line-height: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--wiom-text-default);
+  }
+
+  .blocker p.body {
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+    font-weight: 400;
+    color: var(--wiom-text-subtle);
+  }
+  .blocker p.body-support {
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+    color: var(--wiom-text-subtle);
+    padding-top: var(--wiom-space-4);
+    border-top: 1px solid var(--wiom-stroke-subtle);
+  }
+  .blocker p.body-support a {
+    color: var(--wiom-text-brand);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .blocker-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--wiom-space-8);
+    min-height: 48px;
+    padding: var(--wiom-space-12) var(--wiom-space-24);
+    background: var(--wiom-bg-brand);
+    color: var(--wiom-text-on-brand);
+    text-decoration: none;
+    border: none;
+    border-radius: var(--wiom-radius-large);
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: background 0.12s ease;
+  }
+  .blocker-cta:hover  { background: var(--wiom-bg-brand-hover); }
+  .blocker-cta:active { background: var(--wiom-bg-brand-pressed); }
+  .blocker-cta:focus-visible {
+    outline: var(--wiom-stroke-medium) solid var(--wiom-stroke-brand-focus);
+    outline-offset: 2px;
+  }
+  .blocker-cta .material-icons { font-size: 20px; }
+
+  /* Role indicator above the toggle */
+  .role-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--wiom-text-subtle);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<!-- Role tag -->
+<span class="role-tag">Technician</span>
+
+<div class="phone-frame">
+  <div class="phone-screen">
+
+    <div class="old-app-faux" aria-hidden="true">
+      <div class="faux-row"></div>
+      <div class="faux-row"></div>
+      <div class="faux-row"></div>
+      <div class="faux-row"></div>
+    </div>
+
+    <div class="overlay">
+      <div class="blocker" role="dialog" aria-modal="true" aria-labelledby="blocker-title">
+        <div class="blocker-content">
+          <h2 id="blocker-title">नया Wiom ऐप आ गया है</h2>
+          <p class="body">आगे से काम नए ऐप से होगा। काम वही है — इस्तेमाल करते-करते समझ आता जाएगा।</p>
+          <p class="body-support">कोई सवाल हो तो support call करें: <a href="tel:7836811111">78368-11111</a></p>
+        </div>
+        <a href="technician-install.html" class="blocker-cta" id="blocker-cta">
+          <span>नया ऐप डाउनलोड करें</span>
+          <span class="material-icons" aria-hidden="true">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
