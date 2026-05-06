@@ -563,8 +563,15 @@
         </ol>
       </section>
 
-      <!-- 5. Final Primary CTA -->
-      <a href="download-success.html" class="cta-primary" id="download-cta">
+      <!-- 5. Final Primary CTA
+           PREVIEW: links to download-success.html (visual install flow for stakeholder walk-through)
+           PRODUCTION: replace href with the Wiom Branch deep link below — Branch will route to
+                       Play Store on Android, App Store on iOS, and handle install attribution.
+                       Current production link: https://wiom.app.link/aQLtpt7cVCb
+                       (Source: traced from partner.wiom.in's "Get Partner+ App" CTA on 2026-05-06)
+      -->
+      <a href="download-success.html" class="cta-primary" id="download-cta"
+         data-production-href="https://wiom.app.link/aQLtpt7cVCb">
         <span class="material-icons" aria-hidden="true">download</span>
         <span>नया ऐप डाउनलोड करें</span>
       </a>

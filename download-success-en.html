@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>App installed — Wiom CSP</title>
+<title>Wiom Partner Plus App — Install</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +19,6 @@
     --wiom-bg-brand-pressed:  #A30070;
     --wiom-bg-brand-bold:     #443152;
     --wiom-bg-brand-subtle:   #FFE5F6;
-    --wiom-bg-positive:       #008043;
 
     --wiom-text-default:      #161021;
     --wiom-text-subtle:       #5C5570;
@@ -27,7 +26,8 @@
     --wiom-text-brand:        #D9008D;
     --wiom-text-inverse:      #FAF9FC;
 
-    --wiom-icon-inverse:      #FAF9FC;
+    --wiom-icon-action:       #352D42;
+    --wiom-icon-brand:        #D9008D;
 
     --wiom-stroke-subtle:     #D7D3E0;
     --wiom-stroke-brand-focus:#D9008D;
@@ -40,7 +40,6 @@
     --wiom-space-32:  32px;
     --wiom-space-48:  48px;
     --wiom-space-64:  64px;
-    --wiom-space-96:  96px;
 
     --wiom-radius-medium:  12px;
     --wiom-radius-large:   16px;
@@ -76,30 +75,27 @@
     .container-narrow { padding-inline: var(--wiom-space-16); }
   }
 
-  .topnav {
-    background: var(--wiom-bg-default);
-    border-bottom: var(--wiom-stroke-small) solid var(--wiom-stroke-subtle);
-    padding: var(--wiom-space-16) 0;
-  }
-  .topnav-inner {
+  .topbar { padding: var(--wiom-space-16) 0; }
+  .topbar-inner {
     max-width: 680px;
     margin-inline: auto;
     padding-inline: var(--wiom-space-16);
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: var(--wiom-space-12);
   }
   @media (min-width: 768px) {
-    .topnav-inner { padding-inline: var(--wiom-space-24); }
+    .topbar-inner { padding-inline: var(--wiom-space-24); }
   }
-  .brand {
-    font-size: 1.5rem;
-    line-height: 2rem;
+  .help-link {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
     font-weight: 700;
-    letter-spacing: -0.01em;
     color: var(--wiom-text-brand);
+    text-decoration: none;
   }
+  .help-link:hover { color: var(--wiom-bg-brand-hover); }
 
   .lang-toggle {
     display: inline-flex;
@@ -136,99 +132,91 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: var(--wiom-space-32) 0 var(--wiom-space-48);
-  }
-  @media (min-width: 768px) {
-    main { padding: var(--wiom-space-64) 0; }
+    padding: var(--wiom-space-16) 0 var(--wiom-space-32);
   }
 
   .stack {
     display: flex;
     flex-direction: column;
-    gap: var(--wiom-space-48);
-  }
-
-  .success-block {
-    display: flex;
-    flex-direction: column;
     align-items: center;
     gap: var(--wiom-space-24);
     text-align: center;
   }
-  .success-circle {
-    width: 120px;
-    height: 120px;
-    background: var(--wiom-bg-positive);
-    border-radius: var(--wiom-radius-full);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 8px 24px rgba(0,128,67,0.20);
-  }
-  .success-circle .material-icons {
-    font-size: 64px;
-    color: var(--wiom-icon-inverse);
-  }
-  .success-block h1 {
-    font-size: 1.5rem;
-    line-height: 2rem;
-    font-weight: 700;
-    color: var(--wiom-text-default);
-    max-width: 320px;
-  }
-  @media (min-width: 768px) {
-    .success-block h1 { font-size: 1.75rem; line-height: 2.25rem; }
-  }
 
-  .open-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--wiom-space-24);
-    padding: var(--wiom-space-24);
-    background: var(--wiom-bg-brand-subtle);
-    border-radius: var(--wiom-radius-large);
-    text-align: center;
-  }
-  @media (min-width: 768px) {
-    .open-block { padding: var(--wiom-space-32); }
-  }
-  .open-block h2 {
-    font-size: 1.125rem;
-    line-height: 1.5rem;
-    font-weight: 700;
-    color: var(--wiom-text-default);
-    max-width: 400px;
-  }
-  @media (min-width: 768px) {
-    .open-block h2 { font-size: 1.25rem; line-height: 1.75rem; }
-  }
   .app-icon {
-    width: 88px;
-    height: 88px;
-    background: var(--wiom-bg-default);
-    border: 2px solid var(--wiom-bg-brand);
-    border-radius: 22px;
+    width: 112px;
+    height: 112px;
+    background: #1E1E1E;
+    border-radius: 24px;
     display: inline-flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    padding: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    padding: 16px 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   .app-icon-mark {
-    font-size: 26px;
-    color: var(--wiom-text-brand);
+    color: var(--wiom-bg-brand);
+    font-size: 40px;
     font-weight: 700;
     line-height: 1;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
   }
   .app-icon-name {
-    font-size: 0.5rem;
-    line-height: 0.6rem;
+    color: var(--wiom-text-on-brand);
+    font-size: 0.875rem;
+    line-height: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .app-icon-name .plus { font-weight: 700; }
+
+  .heading-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wiom-space-8);
+    max-width: 520px;
+  }
+  .heading-block h1 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
     font-weight: 700;
     color: var(--wiom-text-default);
-    text-align: center;
+  }
+  @media (min-width: 768px) {
+    .heading-block h1 { font-size: 1.5rem; line-height: 2rem; }
+  }
+  .heading-block .subhead {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 600;
+    color: var(--wiom-text-default);
+  }
+  @media (min-width: 768px) {
+    .heading-block .subhead { font-size: 1.125rem; line-height: 1.75rem; }
+  }
+
+  .illustration {
+    width: 100%;
+    max-width: 360px;
+    margin: var(--wiom-space-16) 0;
+  }
+  .illustration svg { width: 100%; height: auto; display: block; }
+
+  .cta-wrap {
+    position: sticky;
+    bottom: 0;
+    background: linear-gradient(to top, var(--wiom-bg-default) 75%, transparent);
+    padding: var(--wiom-space-16) 0 var(--wiom-space-24);
+    margin-top: var(--wiom-space-24);
+  }
+  .cta-wrap-inner {
+    max-width: 680px;
+    margin-inline: auto;
+    padding-inline: var(--wiom-space-16);
+  }
+  @media (min-width: 768px) {
+    .cta-wrap-inner { padding-inline: var(--wiom-space-24); }
   }
 
   .cta-primary {
@@ -237,19 +225,20 @@
     justify-content: center;
     gap: var(--wiom-space-8);
     width: 100%;
-    min-height: 48px;
-    padding: var(--wiom-space-12) var(--wiom-space-24);
+    min-height: 56px;
+    padding: var(--wiom-space-16) var(--wiom-space-24);
     background: var(--wiom-bg-brand);
     color: var(--wiom-text-on-brand);
     text-decoration: none;
     border: none;
-    border-radius: var(--wiom-radius-large);
+    border-radius: var(--wiom-radius-full);
     font-size: 1rem;
     line-height: 1.5rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.01em;
     cursor: pointer;
     transition: background 0.12s ease;
+    box-shadow: 0 4px 16px rgba(217, 0, 141, 0.20);
   }
   .cta-primary:hover  { background: var(--wiom-bg-brand-hover); }
   .cta-primary:active { background: var(--wiom-bg-brand-pressed); }
@@ -257,38 +246,13 @@
     outline: var(--wiom-stroke-medium) solid var(--wiom-stroke-brand-focus);
     outline-offset: 2px;
   }
-  .cta-primary .material-icons { font-size: 20px; }
-
-  footer {
-    background: var(--wiom-bg-brand-bold);
-    color: var(--wiom-text-inverse);
-    padding: var(--wiom-space-32) 0;
-    margin-top: var(--wiom-space-48);
-  }
-  @media (min-width: 768px) {
-    footer { padding: var(--wiom-space-48) 0; margin-top: var(--wiom-space-64); }
-  }
-  .footer-inner {
-    max-width: 680px;
-    margin-inline: auto;
-    padding-inline: var(--wiom-space-16);
-  }
-  @media (min-width: 768px) {
-    .footer-inner { padding-inline: var(--wiom-space-24); }
-  }
-  .footer-tagline {
-    font-size: 1rem;
-    line-height: 1.5rem;
-    font-weight: 700;
-    color: var(--wiom-text-on-brand);
-  }
 </style>
 </head>
 <body>
 
-<header class="topnav">
-  <div class="topnav-inner">
-    <div class="brand">Wiom</div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="tel:7836811111" class="help-link">Help</a>
     <div class="lang-toggle" role="group" aria-label="Language">
       <a href="download-success.html" class="lang-btn">हिं</a>
       <a href="download-success-en.html" class="lang-btn active" aria-current="page">EN</a>
@@ -300,34 +264,57 @@
   <div class="container-narrow">
     <div class="stack">
 
-      <section class="success-block" aria-live="polite">
-        <div class="success-circle" aria-hidden="true">
-          <span class="material-icons">check</span>
-        </div>
-        <h1>Wiom Partner Plus app installed</h1>
-      </section>
+      <div class="app-icon" aria-hidden="true">
+        <div class="app-icon-mark">∞</div>
+        <div class="app-icon-name">partner <span class="plus">+</span></div>
+      </div>
 
-      <section class="open-block">
-        <div class="app-icon" aria-hidden="true">
-          <div class="app-icon-mark">∞</div>
-          <div class="app-icon-name">Partner Plus</div>
-        </div>
-        <h2>To grow your business, open the Wiom Partner Plus app now</h2>
-        <a href="#" class="cta-primary" id="open-app-cta">
-          <span class="material-icons" aria-hidden="true">launch</span>
-          <span>Open App</span>
-        </a>
-      </section>
+      <div class="heading-block">
+        <h1>Achieve all your dreams with Wiom</h1>
+        <p class="subhead">Grow your business and earn up to 2x</p>
+      </div>
+
+      <div class="illustration" aria-hidden="true">
+        <svg viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg">
+          <g>
+            <rect x="60" y="170" width="60" height="36" fill="#FFE5F6" stroke="#D9008D" stroke-width="2" rx="2"/>
+            <rect x="60" y="170" width="60" height="6" fill="#D9008D"/>
+            <rect x="120" y="148" width="60" height="58" fill="#FFE5F6" stroke="#D9008D" stroke-width="2" rx="2"/>
+            <rect x="120" y="148" width="60" height="6" fill="#D9008D"/>
+            <rect x="180" y="126" width="60" height="80" fill="#FFE5F6" stroke="#D9008D" stroke-width="2" rx="2"/>
+            <rect x="180" y="126" width="60" height="6" fill="#D9008D"/>
+            <rect x="240" y="104" width="60" height="102" fill="#FFE5F6" stroke="#D9008D" stroke-width="2" rx="2"/>
+            <rect x="240" y="104" width="60" height="6" fill="#D9008D"/>
+          </g>
+          <g>
+            <line x1="270" y1="104" x2="270" y2="30" stroke="#1E1E1E" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M 271 32 Q 305 38 320 50 Q 305 62 271 60 Z" fill="#D9008D"/>
+          </g>
+          <g transform="translate(150, 110)">
+            <circle cx="0" cy="0" r="9" fill="#161021"/>
+            <path d="M -7 -6 Q -3 -12 4 -10 Q 8 -8 6 -4" fill="#1E1E1E"/>
+            <path d="M -10 9 L -12 32 Q -10 36 -4 36 L 4 36 Q 10 36 12 32 L 10 9 Z" fill="#D9008D"/>
+            <path d="M 8 12 Q 18 14 22 18" stroke="#D9008D" stroke-width="6" stroke-linecap="round" fill="none"/>
+            <path d="M -8 12 Q -14 18 -16 24" stroke="#D9008D" stroke-width="6" stroke-linecap="round" fill="none"/>
+            <rect x="-9" y="34" width="6" height="20" fill="#5C5570" rx="2"/>
+            <rect x="3" y="34" width="6" height="20" fill="#5C5570" rx="2"/>
+          </g>
+        </svg>
+      </div>
 
     </div>
   </div>
 </main>
 
-<footer>
-  <div class="footer-inner">
-    <p class="footer-tagline">Wiom — Pay-as-you-go home internet</p>
+<!-- Sticky CTA. PRODUCTION: replace with https://wiom.app.link/aQLtpt7cVCb -->
+<div class="cta-wrap">
+  <div class="cta-wrap-inner">
+    <a href="#" class="cta-primary" id="install-cta"
+       data-production-href="https://wiom.app.link/aQLtpt7cVCb">
+      <span>Install Wiom Partner Plus App</span>
+    </a>
   </div>
-</footer>
+</div>
 
 </body>
 </html>
