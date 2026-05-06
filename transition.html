@@ -77,6 +77,56 @@
     line-height: 1.5;
   }
 
+  /* ════════════════════════════════════════════════════════
+     Phone-frame preview wrapper (desktop only)
+     On mobile/tablet → no frame, full-screen real CSP experience
+     On desktop ≥1024px → centered phone mockup with scrollable inner content
+     ════════════════════════════════════════════════════════ */
+  .phone-preview-frame {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .phone-screen {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (min-width: 1024px) {
+    body {
+      background: var(--wiom-bg-subtle);
+      padding: 32px 16px;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .phone-preview-frame {
+      width: 390px;
+      height: 844px;
+      min-height: 844px;
+      max-height: 844px;
+      background: #1E1E1E;
+      border-radius: 44px;
+      padding: 8px;
+      box-shadow: 0 24px 64px rgba(22,16,33,0.20);
+      flex-shrink: 0;
+    }
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: var(--wiom-bg-default);
+      border-radius: 36px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      flex: none;
+      scrollbar-width: thin;
+    }
+    .phone-screen::-webkit-scrollbar { width: 4px; }
+    .phone-screen::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 999px; }
+  }
+
   .material-icons { user-select: none; vertical-align: middle; }
 
   /* Containers */
@@ -466,6 +516,9 @@
 </head>
 <body>
 
+<div class="phone-preview-frame">
+  <div class="phone-screen">
+
 <!-- Top nav: brand only -->
 <header class="topnav">
   <div class="topnav-inner">
@@ -480,7 +533,7 @@
       <!-- 1. Hero -->
       <section class="hero">
         <h1>Wiom System launch हो चुका है।</h1>
-        <p class="subhead">नया system, नया app, कुछ नए terms।</p>
+        <p class="subhead">नया system, नया app।</p>
       </section>
 
       <!-- 2. CSP identity note -->
@@ -545,6 +598,9 @@
     <p class="footer-tagline">Wiom — रिचार्ज वाला घर का net</p>
   </div>
 </footer>
+
+  </div><!-- /.phone-screen -->
+</div><!-- /.phone-preview-frame -->
 
 <!-- Video modal -->
 <div class="video-modal" id="video-modal" role="dialog" aria-modal="true" aria-label="Wiom System video">
