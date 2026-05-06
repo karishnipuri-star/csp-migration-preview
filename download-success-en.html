@@ -19,15 +19,13 @@
     --wiom-bg-brand-pressed:  #A30070;
     --wiom-bg-brand-bold:     #443152;
     --wiom-bg-brand-subtle:   #FFE5F6;
+    --wiom-bg-positive:       #19A05A;
 
     --wiom-text-default:      #161021;
     --wiom-text-subtle:       #5C5570;
     --wiom-text-on-brand:     #FFFFFF;
     --wiom-text-brand:        #D9008D;
     --wiom-text-inverse:      #FAF9FC;
-
-    --wiom-icon-action:       #352D42;
-    --wiom-icon-brand:        #D9008D;
 
     --wiom-stroke-subtle:     #D7D3E0;
     --wiom-stroke-brand-focus:#D9008D;
@@ -45,7 +43,6 @@
     --wiom-radius-large:   16px;
     --wiom-radius-full:    9999px;
 
-    --wiom-stroke-small:   1px;
     --wiom-stroke-medium:  2px;
   }
 
@@ -60,20 +57,7 @@
     flex-direction: column;
     line-height: 1.5;
   }
-
   .material-icons { user-select: none; vertical-align: middle; }
-
-  .container-narrow {
-    max-width: 680px;
-    margin-inline: auto;
-    width: 100%;
-  }
-  @media (max-width: 1023px) {
-    .container-narrow { padding-inline: var(--wiom-space-24); }
-  }
-  @media (max-width: 767px) {
-    .container-narrow { padding-inline: var(--wiom-space-16); }
-  }
 
   .topbar { padding: var(--wiom-space-16) 0; }
   .topbar-inner {
@@ -85,9 +69,7 @@
     justify-content: flex-end;
     gap: var(--wiom-space-12);
   }
-  @media (min-width: 768px) {
-    .topbar-inner { padding-inline: var(--wiom-space-24); }
-  }
+  @media (min-width: 768px) { .topbar-inner { padding-inline: var(--wiom-space-24); } }
   .help-link {
     font-size: 0.875rem;
     line-height: 1.25rem;
@@ -95,8 +77,6 @@
     color: var(--wiom-text-brand);
     text-decoration: none;
   }
-  .help-link:hover { color: var(--wiom-bg-brand-hover); }
-
   .lang-toggle {
     display: inline-flex;
     align-items: center;
@@ -105,7 +85,6 @@
     border-radius: var(--wiom-radius-full);
     padding: 3px;
     gap: 2px;
-    flex-shrink: 0;
   }
   .lang-btn {
     display: inline-flex;
@@ -116,111 +95,203 @@
     padding: 4px 10px;
     border-radius: var(--wiom-radius-full);
     font-size: 0.75rem;
-    line-height: 1rem;
     font-weight: 600;
     text-decoration: none;
     color: var(--wiom-text-subtle);
     transition: background 0.12s, color 0.12s;
   }
-  .lang-btn:hover { color: var(--wiom-text-default); }
-  .lang-btn.active {
-    background: var(--wiom-bg-brand);
-    color: var(--wiom-text-on-brand);
-  }
+  .lang-btn.active { background: var(--wiom-bg-brand); color: var(--wiom-text-on-brand); }
 
   main {
     flex: 1;
     display: flex;
-    flex-direction: column;
-    padding: var(--wiom-space-16) 0 var(--wiom-space-32);
-  }
-
-  .stack {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--wiom-space-24);
-    text-align: center;
-  }
-
-  .app-icon {
-    width: 112px;
-    height: 112px;
-    background: #1E1E1E;
-    border-radius: 24px;
-    display: inline-flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 16px 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+    padding: var(--wiom-space-16) var(--wiom-space-24) var(--wiom-space-32);
   }
-  .app-icon-mark {
-    color: var(--wiom-bg-brand);
-    font-size: 40px;
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-  .app-icon-name {
-    color: var(--wiom-text-on-brand);
-    font-size: 0.875rem;
-    line-height: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-  }
-  .app-icon-name .plus { font-weight: 700; }
+  .container-narrow { max-width: 520px; width: 100%; }
 
-  .heading-block {
-    display: flex;
+  .state {
+    display: none;
     flex-direction: column;
-    gap: var(--wiom-space-8);
-    max-width: 520px;
+    align-items: center;
+    gap: var(--wiom-space-32);
+    text-align: center;
+    animation: fadeIn 0.4s ease-out;
   }
-  .heading-block h1 {
-    font-size: 1.25rem;
+  .state.is-active { display: flex; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .loader-circle {
+    width: 96px;
+    height: 96px;
+    border: 6px solid var(--wiom-bg-subtle);
+    border-top-color: var(--wiom-bg-brand);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .state .label {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--wiom-text-default);
+  }
+
+  .check-circle {
+    width: 156px;
+    height: 156px;
+    background: var(--wiom-bg-positive);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 32px rgba(25, 160, 90, 0.22);
+    animation: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes pop {
+    0%   { transform: scale(0.4); opacity: 0; }
+    70%  { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .check-circle .material-icons { color: white; font-size: 96px; font-weight: 700; }
+  .state .heading {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+    color: var(--wiom-text-default);
+    max-width: 360px;
+  }
+
+  .open-heading {
+    font-size: 1.125rem;
     line-height: 1.75rem;
     font-weight: 700;
     color: var(--wiom-text-default);
   }
-  @media (min-width: 768px) {
-    .heading-block h1 { font-size: 1.5rem; line-height: 2rem; }
-  }
-  .heading-block .subhead {
+  @media (min-width: 768px) { .open-heading { font-size: 1.25rem; } }
+  .open-prompt {
     font-size: 1rem;
     line-height: 1.5rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--wiom-text-default);
+    max-width: 380px;
   }
-  @media (min-width: 768px) {
-    .heading-block .subhead { font-size: 1.125rem; line-height: 1.75rem; }
-  }
+  @media (min-width: 768px) { .open-prompt { font-size: 1.125rem; } }
 
-  .illustration {
-    width: 100%;
-    max-width: 360px;
-    margin: var(--wiom-space-16) 0;
+  .phone-mock {
+    width: 260px;
+    background: #1E1E1E;
+    border-radius: 32px;
+    padding: 8px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.22);
   }
-  .illustration svg { width: 100%; height: auto; display: block; }
+  .phone-mock-screen {
+    border-radius: 26px;
+    background: linear-gradient(135deg, #FF7AB0 0%, #FFB388 50%, #B89BFF 100%);
+    padding: 8px 6px 12px;
+    position: relative;
+  }
+  .phone-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-size: 9px;
+    font-weight: 600;
+    padding: 2px 6px 6px;
+  }
+  .phone-status .right { display: inline-flex; align-items: center; gap: 3px; }
+  .phone-status .right .material-icons { font-size: 10px; color: white; }
+  .phone-search {
+    background: rgba(255,255,255,0.95);
+    border-radius: 20px;
+    padding: 6px 10px;
+    font-size: 9px;
+    color: var(--wiom-text-subtle);
+    margin: 4px 4px 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .phone-search .material-icons { font-size: 12px; }
+
+  .app-grid-mock {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    padding: 0 4px;
+  }
+  .app-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 4px 2px;
+    border-radius: 8px;
+  }
+  .app-tile-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  }
+  .app-tile-label {
+    font-size: 8px;
+    line-height: 9px;
+    color: white;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .app-tile.highlighted {
+    background: white;
+    border-radius: 14px;
+    padding: 6px 4px;
+    box-shadow: 0 6px 16px rgba(217,0,141,0.30);
+    transform: scale(1.05);
+  }
+  .app-tile.highlighted .app-tile-icon {
+    background: #1E1E1E;
+    flex-direction: column;
+    font-size: 14px;
+    color: var(--wiom-bg-brand);
+    line-height: 1;
+  }
+  .app-tile.highlighted .app-tile-icon .plus {
+    font-size: 7px;
+    font-weight: 700;
+    color: white;
+    margin-top: 1px;
+    letter-spacing: 0.5px;
+  }
+  .app-tile.highlighted .app-tile-label {
+    color: var(--wiom-text-default);
+    font-weight: 700;
+    text-shadow: none;
+  }
 
   .cta-wrap {
     position: sticky;
     bottom: 0;
     background: linear-gradient(to top, var(--wiom-bg-default) 75%, transparent);
-    padding: var(--wiom-space-16) 0 var(--wiom-space-24);
-    margin-top: var(--wiom-space-24);
+    padding: var(--wiom-space-16) var(--wiom-space-16) var(--wiom-space-24);
   }
-  .cta-wrap-inner {
-    max-width: 680px;
-    margin-inline: auto;
-    padding-inline: var(--wiom-space-16);
-  }
-  @media (min-width: 768px) {
-    .cta-wrap-inner { padding-inline: var(--wiom-space-24); }
-  }
+  @media (min-width: 768px) { .cta-wrap { padding-inline: var(--wiom-space-24); } }
+  .cta-wrap .cta-primary { max-width: 520px; margin: 0 auto; display: flex; }
 
   .cta-primary {
-    display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: var(--wiom-space-8);
@@ -233,12 +304,10 @@
     border: none;
     border-radius: var(--wiom-radius-full);
     font-size: 1rem;
-    line-height: 1.5rem;
     font-weight: 700;
-    letter-spacing: 0.01em;
     cursor: pointer;
-    transition: background 0.12s ease;
     box-shadow: 0 4px 16px rgba(217, 0, 141, 0.20);
+    transition: background 0.12s ease;
   }
   .cta-primary:hover  { background: var(--wiom-bg-brand-hover); }
   .cta-primary:active { background: var(--wiom-bg-brand-pressed); }
@@ -246,9 +315,10 @@
     outline: var(--wiom-stroke-medium) solid var(--wiom-stroke-brand-focus);
     outline-offset: 2px;
   }
+  body:not(.state-3-active) .cta-wrap { display: none; }
 </style>
 </head>
-<body>
+<body class="state-1-active">
 
 <header class="topbar">
   <div class="topbar-inner">
@@ -262,59 +332,92 @@
 
 <main>
   <div class="container-narrow">
-    <div class="stack">
 
-      <div class="app-icon" aria-hidden="true">
-        <div class="app-icon-mark">∞</div>
-        <div class="app-icon-name">partner <span class="plus">+</span></div>
+    <section class="state is-active" id="state-1" aria-live="polite">
+      <div class="loader-circle" aria-hidden="true"></div>
+      <p class="label">Downloading...</p>
+    </section>
+
+    <section class="state" id="state-2" aria-live="polite">
+      <div class="check-circle" aria-hidden="true">
+        <span class="material-icons">check</span>
+      </div>
+      <h1 class="heading">Wiom Partner Plus app installed</h1>
+    </section>
+
+    <section class="state" id="state-3" aria-live="polite">
+      <h1 class="open-heading">Partner Plus app installed</h1>
+
+      <div class="phone-mock" aria-hidden="true">
+        <div class="phone-mock-screen">
+          <div class="phone-status">
+            <span class="left">12:44 ⓘ</span>
+            <span class="right">
+              <span class="material-icons">network_wifi</span>
+              <span class="material-icons">signal_cellular_4_bar</span>
+              <span>69%</span>
+              <span class="material-icons">battery_full</span>
+            </span>
+          </div>
+          <div class="phone-search">
+            <span class="material-icons">search</span>
+            <span>Search for apps on this device</span>
+          </div>
+          <div class="app-grid-mock">
+            <div class="app-tile"><span class="app-tile-icon" style="background:#3B82F6">T</span><span class="app-tile-label">Truecaller</span></div>
+            <div class="app-tile"><span class="app-tile-icon" style="background:#F97316">T</span><span class="app-tile-label">Turbo VPN</span></div>
+            <div class="app-tile"><span class="app-tile-icon" style="background:#1E1E1E">U</span><span class="app-tile-label">Uber</span></div>
+            <div class="app-tile"><span class="app-tile-icon" style="background:#9333EA">U</span><span class="app-tile-label">Udemy</span></div>
+
+            <div class="app-tile"><span class="app-tile-icon" style="background:#1E1E1E">UC</span><span class="app-tile-label">Urban Co.</span></div>
+            <div class="app-tile highlighted">
+              <span class="app-tile-icon">∞<span class="plus">partner +</span></span>
+              <span class="app-tile-label">Wiom Partner Plus</span>
+            </div>
+            <div class="app-tile"><span class="app-tile-icon" style="background:#EA580C">VLC</span><span class="app-tile-label">VLC</span></div>
+            <div class="app-tile"><span class="app-tile-icon" style="background:#EF4444">V</span><span class="app-tile-label">Vyom</span></div>
+
+            <div class="app-tile"><span class="app-tile-icon" style="background:#06B6D4">🎨</span><span class="app-tile-label">Wallpapers</span></div>
+            <div class="app-tile"><span class="app-tile-icon" style="background:#0EA5E9">W</span><span class="app-tile-label">WazirX</span></div>
+            <div class="app-tile"><span class="app-tile-icon" style="background:#0284C7">☁</span><span class="app-tile-label">Weather</span></div>
+            <div class="app-tile"><span class="app-tile-icon" style="background:#16A34A">📱</span><span class="app-tile-label">WhatsApp</span></div>
+          </div>
+        </div>
       </div>
 
-      <div class="heading-block">
-        <h1>Achieve all your dreams with Wiom</h1>
-        <p class="subhead">Grow your business and earn up to 2x</p>
-      </div>
+      <p class="open-prompt">Open the Wiom Partner Plus app now to grow your business</p>
+    </section>
 
-      <div class="illustration" aria-hidden="true">
-        <svg viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg">
-          <g>
-            <rect x="60" y="170" width="60" height="36" fill="#FFE5F6" stroke="#D9008D" stroke-width="2" rx="2"/>
-            <rect x="60" y="170" width="60" height="6" fill="#D9008D"/>
-            <rect x="120" y="148" width="60" height="58" fill="#FFE5F6" stroke="#D9008D" stroke-width="2" rx="2"/>
-            <rect x="120" y="148" width="60" height="6" fill="#D9008D"/>
-            <rect x="180" y="126" width="60" height="80" fill="#FFE5F6" stroke="#D9008D" stroke-width="2" rx="2"/>
-            <rect x="180" y="126" width="60" height="6" fill="#D9008D"/>
-            <rect x="240" y="104" width="60" height="102" fill="#FFE5F6" stroke="#D9008D" stroke-width="2" rx="2"/>
-            <rect x="240" y="104" width="60" height="6" fill="#D9008D"/>
-          </g>
-          <g>
-            <line x1="270" y1="104" x2="270" y2="30" stroke="#1E1E1E" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M 271 32 Q 305 38 320 50 Q 305 62 271 60 Z" fill="#D9008D"/>
-          </g>
-          <g transform="translate(150, 110)">
-            <circle cx="0" cy="0" r="9" fill="#161021"/>
-            <path d="M -7 -6 Q -3 -12 4 -10 Q 8 -8 6 -4" fill="#1E1E1E"/>
-            <path d="M -10 9 L -12 32 Q -10 36 -4 36 L 4 36 Q 10 36 12 32 L 10 9 Z" fill="#D9008D"/>
-            <path d="M 8 12 Q 18 14 22 18" stroke="#D9008D" stroke-width="6" stroke-linecap="round" fill="none"/>
-            <path d="M -8 12 Q -14 18 -16 24" stroke="#D9008D" stroke-width="6" stroke-linecap="round" fill="none"/>
-            <rect x="-9" y="34" width="6" height="20" fill="#5C5570" rx="2"/>
-            <rect x="3" y="34" width="6" height="20" fill="#5C5570" rx="2"/>
-          </g>
-        </svg>
-      </div>
-
-    </div>
   </div>
 </main>
 
-<!-- Sticky CTA. PRODUCTION: replace with https://wiom.app.link/aQLtpt7cVCb -->
 <div class="cta-wrap">
-  <div class="cta-wrap-inner">
-    <a href="#" class="cta-primary" id="install-cta"
-       data-production-href="https://wiom.app.link/aQLtpt7cVCb">
-      <span>Install Wiom Partner Plus App</span>
-    </a>
-  </div>
+  <a href="#" class="cta-primary" id="open-app-cta"
+     data-production-href="https://wiom.app.link/aQLtpt7cVCb">
+    <span>Open Wiom Partner Plus App</span>
+  </a>
 </div>
+
+<script>
+  const body = document.body;
+  const states = {
+    1: document.getElementById('state-1'),
+    2: document.getElementById('state-2'),
+    3: document.getElementById('state-3')
+  };
+  function show(n) {
+    body.classList.remove('state-1-active', 'state-2-active', 'state-3-active');
+    body.classList.add('state-' + n + '-active');
+    Object.values(states).forEach(el => el.classList.remove('is-active'));
+    states[n].classList.add('is-active');
+  }
+  if (location.hash === '#installed') {
+    show(3);
+  } else {
+    setTimeout(() => show(2), 1800);
+    setTimeout(() => show(3), 4000);
+  }
+</script>
 
 </body>
 </html>
