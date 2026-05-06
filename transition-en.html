@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wiom System launch हो चुका है — Wiom CSP</title>
+<title>New App is live under the new system — Wiom CSP</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,9 +11,6 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <style>
-  /* ════════════════════════════════════════════════════════
-     Wiom Design System — semantic tokens
-     ════════════════════════════════════════════════════════ */
   :root {
     --wiom-bg-default:        #FAF9FC;
     --wiom-bg-subtle:         #F1EDF7;
@@ -77,10 +74,8 @@
     line-height: 1.5;
   }
 
-
   .material-icons { user-select: none; vertical-align: middle; }
 
-  /* Containers */
   .container-narrow {
     max-width: 680px;
     margin-inline: auto;
@@ -93,9 +88,6 @@
     .container-narrow { padding-inline: var(--wiom-space-16); }
   }
 
-  /* ════════════════════════════════════════════════════════
-     Top nav (brand only — PTL now lives inside point 4)
-     ════════════════════════════════════════════════════════ */
   .topnav {
     position: sticky;
     top: 0;
@@ -124,7 +116,6 @@
     color: var(--wiom-text-brand);
   }
 
-  /* ─── Language toggle ─── */
   .lang-toggle {
     display: inline-flex;
     align-items: center;
@@ -156,12 +147,9 @@
     color: var(--wiom-text-on-brand);
   }
 
-  /* ════════════════════════════════════════════════════════
-     Main + page stack
-     ════════════════════════════════════════════════════════ */
   main { flex: 1; padding: var(--wiom-space-32) 0 var(--wiom-space-48); }
   @media (min-width: 768px) {
-    main { padding: var(--wiom-space-64) 0 var(--wiom-space-64); }
+    main { padding: var(--wiom-space-64) 0; }
   }
 
   .stack {
@@ -170,14 +158,13 @@
     gap: var(--wiom-space-32);
   }
 
-  /* ─── Hero ─── */
   .hero {
     display: flex;
     flex-direction: column;
     gap: var(--wiom-space-12);
   }
   .hero h1 {
-    font-size: 1.75rem;       /* 28px mobile */
+    font-size: 1.75rem;
     line-height: 2.25rem;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -189,17 +176,7 @@
   @media (min-width: 1024px) {
     .hero h1 { font-size: 2.5rem; line-height: 3rem; }
   }
-  .hero .subhead {
-    font-size: 1rem;
-    line-height: 1.5rem;
-    font-weight: 400;
-    color: var(--wiom-text-subtle);
-  }
-  @media (min-width: 768px) {
-    .hero .subhead { font-size: 1.125rem; line-height: 1.75rem; }
-  }
 
-  /* ─── CSP identity note (callout) ─── */
   .note-callout {
     display: flex;
     gap: var(--wiom-space-12);
@@ -225,14 +202,12 @@
     color: var(--wiom-text-brand);
   }
 
-  /* ─── Section heading ─── */
   .section-block {
     display: flex;
     flex-direction: column;
     gap: var(--wiom-space-12);
   }
   .section-block h2 {
-    /* type.heading.lg — 24px / 32px / 700 */
     font-size: 1.25rem;
     line-height: 1.75rem;
     font-weight: 700;
@@ -249,7 +224,6 @@
     color: var(--wiom-text-default);
   }
 
-  /* ─── Secondary CTA (Video dekhein) ─── */
   .cta-secondary {
     display: inline-flex;
     align-items: center;
@@ -279,7 +253,6 @@
   }
   .cta-secondary .material-icons { font-size: 20px; }
 
-  /* ─── 30-day Adjustment Window — highlighted card ─── */
   .month-card {
     background: var(--wiom-bg-brand-subtle);
     border-radius: var(--wiom-radius-large);
@@ -320,7 +293,6 @@
     color: var(--wiom-text-default);
   }
 
-  /* ─── Numbered list inside 30-day card ─── */
   .numbered-list {
     list-style: none;
     counter-reset: step;
@@ -363,7 +335,6 @@
     font-weight: 700;
   }
 
-  /* ─── PTL link inside point 4 ─── */
   .ptl-action {
     display: inline-flex;
     align-items: center;
@@ -387,7 +358,6 @@
   }
   .ptl-action .material-icons { font-size: 18px; color: var(--wiom-icon-brand); }
 
-  /* ─── Primary CTA ─── */
   .cta-primary {
     display: inline-flex;
     align-items: center;
@@ -417,7 +387,6 @@
   }
   .cta-primary .material-icons { font-size: 20px; }
 
-  /* ─── Footer (always bg.brand.bold) ─── */
   footer {
     background: var(--wiom-bg-brand-bold);
     color: var(--wiom-text-inverse);
@@ -451,7 +420,6 @@
     color: var(--wiom-text-on-brand);
   }
 
-  /* ─── Video modal ─── */
   .video-modal {
     position: fixed;
     inset: 0;
@@ -503,13 +471,12 @@
 </head>
 <body>
 
-<!-- Top nav: brand + language toggle -->
 <header class="topnav">
   <div class="topnav-inner">
     <div class="brand">Wiom</div>
     <div class="lang-toggle" role="group" aria-label="Language">
-      <a href="transition.html" class="lang-btn active" aria-current="page">हिं</a>
-      <a href="transition-en.html" class="lang-btn">EN</a>
+      <a href="transition.html" class="lang-btn">हिं</a>
+      <a href="transition-en.html" class="lang-btn active" aria-current="page">EN</a>
     </div>
   </div>
 </header>
@@ -520,46 +487,46 @@
 
       <!-- 1. Hero -->
       <section class="hero">
-        <h1>नया App नए System पर live है।</h1>
+        <h1>New App is live under the new system.</h1>
       </section>
 
       <!-- 2. CSP identity note -->
       <aside class="note-callout">
         <span class="material-icons" aria-hidden="true">info</span>
-        <p>System में आपकी identity अब <strong>"CSP"</strong> (Connection Service Provider) है। App और हर जगह इसी नाम से होगी।</p>
+        <p>Your identity in the system is now <strong>"CSP"</strong> (Connection Service Provider). It will be used in the app and everywhere.</p>
       </aside>
 
       <!-- 3. Updates section -->
       <section class="section-block">
-        <h2>नए System में क्या updates हैं?</h2>
-        <p>Bonus का तरीका, payouts, NetBox, customer plans — पूरी detail एक video में है। हर चीज़ एक जगह, एक बार में।</p>
+        <h2>What's new in the system?</h2>
+        <p>Bonus structure, payouts, NetBox, customer plans — all the details in one video. Everything in one place, in one go.</p>
         <button class="cta-secondary" id="know-more-btn" aria-haspopup="dialog">
           <span class="material-icons" aria-hidden="true">play_circle</span>
-          <span>Video देखें</span>
+          <span>Watch video</span>
         </button>
       </section>
 
-      <!-- 4. 30-day Adjustment Window — highlighted -->
+      <!-- 4. 30-day Adjustment Window -->
       <section class="month-card">
         <div class="month-eyebrow">
           <span class="material-icons" aria-hidden="true">schedule</span>
-          <span>30 दिन</span>
+          <span>30 days</span>
         </div>
-        <h2>30-दिन का Adjustment Window</h2>
-        <p class="intro">नए app और नए system के लिए <strong>30-दिन का adjustment window</strong> active है। इन 30 दिनों में:</p>
+        <h2>30-day Adjustment Window</h2>
+        <p class="intro">A <strong>30-day adjustment window</strong> is active for the new app and new system. During these 30 days:</p>
 
         <ol class="numbered-list">
           <li>
-            <p>आपको app समझने का <strong>पूरा समय</strong> मिलेगा।</p>
+            <p>You'll have the <strong>full time</strong> to understand the app.</p>
           </li>
           <li>
-            <p>नए system अनुसार पैसे से जुड़ी कोई भी चीज़ — bonus, carry fee, etc — <strong>अभी activate नहीं</strong> है। 30 दिन के बाद शुरू होगी।</p>
+            <p>Per the new system, anything money-related — bonus, carry fee, etc — is <strong>not active yet</strong>. It will start after 30 days.</p>
           </li>
           <li>
-            <p>App खुद हर step पर दिखाएगा क्या हो रहा है और क्या करना है। अलग से सीखने की ज़रूरत नहीं — use करते-करते समझ आ जाएगा।</p>
+            <p>The app itself will show you what's happening and what to do at every step. No separate learning needed — you'll understand as you use it.</p>
           </li>
           <li>
-            <p>कोई सवाल या दिक्कत हो तो support team available है।</p>
+            <p>If you have any questions or issues, the support team is available.</p>
             <a href="tel:7836811111" class="ptl-action">
               <span class="material-icons" aria-hidden="true">call</span>
               <span>78368-11111</span>
@@ -571,22 +538,20 @@
       <!-- 5. Final Primary CTA -->
       <a href="#" class="cta-primary" id="download-cta">
         <span class="material-icons" aria-hidden="true">system_update</span>
-        <span>नया App Update करें</span>
+        <span>Update New App</span>
       </a>
 
     </div>
   </div>
 </main>
 
-<!-- Footer -->
 <footer>
   <div class="footer-inner">
-    <p class="footer-tech">Technician को अलग link भेजा जा रहा है।</p>
-    <p class="footer-tagline">Wiom — रिचार्ज वाला घर का net</p>
+    <p class="footer-tech">A separate link will be sent to the technician.</p>
+    <p class="footer-tagline">Wiom — Pay-as-you-go home internet</p>
   </div>
 </footer>
 
-<!-- Video modal -->
 <div class="video-modal" id="video-modal" role="dialog" aria-modal="true" aria-label="Wiom System video">
   <div class="video-modal-card">
     <button class="video-modal-close" id="video-close" aria-label="Close video">
