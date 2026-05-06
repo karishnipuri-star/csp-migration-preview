@@ -165,21 +165,33 @@
     color: var(--wiom-text-default);
   }
 
-  .blocker p.body {
+  .blocker ul.bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wiom-space-8);
+  }
+  .blocker ul.bullets li {
+    position: relative;
+    padding-left: 18px;
     font-size: 0.875rem;
     line-height: 1.375rem;
     font-weight: 400;
     color: var(--wiom-text-subtle);
   }
-  .blocker p.body-support {
-    font-size: 0.8125rem;
-    line-height: 1.25rem;
-    font-weight: 400;
-    color: var(--wiom-text-subtle);
-    padding-top: var(--wiom-space-4);
-    border-top: 1px solid var(--wiom-stroke-subtle);
+  .blocker ul.bullets li::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 9px;
+    width: 6px;
+    height: 6px;
+    background: var(--wiom-bg-brand);
+    border-radius: 50%;
   }
-  .blocker p.body-support a {
+  .blocker ul.bullets li a {
     color: var(--wiom-text-brand);
     font-weight: 700;
     text-decoration: none;
@@ -240,9 +252,12 @@
     <div class="overlay">
       <div class="blocker" role="dialog" aria-modal="true" aria-labelledby="blocker-title">
         <div class="blocker-content">
-          <h2 id="blocker-title">नया Wiom ऐप आ गया है</h2>
-          <p class="body">आगे से काम नए ऐप से होगा। काम वही है — इस्तेमाल करते-करते समझ आता जाएगा।</p>
-          <p class="body-support">कोई सवाल हो तो support call करें: <a href="tel:7836811111">78368-11111</a></p>
+          <h2 id="blocker-title">नया ऐप लाइव है</h2>
+          <ul class="bullets">
+            <li>काम वही है</li>
+            <li>ऐप इस्तेमाल करते-करते समझ आता जाएगा</li>
+            <li>कोई सवाल हो तो support call करें: <a href="tel:7836811111">78368-11111</a></li>
+          </ul>
         </div>
         <a href="technician-install.html" class="blocker-cta" id="blocker-cta">
           <span>नया ऐप डाउनलोड करें</span>
