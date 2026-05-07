@@ -139,6 +139,11 @@
   }
 
   /* Hero */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wiom-space-8);
+  }
   .hero h1 {
     font-size: 1.75rem;
     line-height: 2.25rem;
@@ -149,68 +154,133 @@
   @media (min-width: 768px) {
     .hero h1 { font-size: 2.25rem; line-height: 2.75rem; }
   }
+  .hero .lead {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: var(--wiom-text-subtle);
+  }
+  @media (min-width: 768px) {
+    .hero .lead { font-size: 1.125rem; line-height: 1.75rem; }
+  }
 
-  /* "पैसे मिलने का तरीका बदला है" — comparison block */
-  .change-block {
+  /* Payment progression — 3 stages */
+  .progression-block {
     display: flex;
     flex-direction: column;
     gap: var(--wiom-space-12);
   }
-  .change-block h2 {
+  .progression-block h2 {
     font-size: 1.25rem;
     line-height: 1.75rem;
     font-weight: 700;
     color: var(--wiom-text-default);
   }
   @media (min-width: 768px) {
-    .change-block h2 { font-size: 1.5rem; line-height: 2rem; }
+    .progression-block h2 { font-size: 1.5rem; line-height: 2rem; }
   }
-  .change-block .lead {
+  .progression-intro {
     font-size: 0.9375rem;
     line-height: 1.5rem;
     color: var(--wiom-text-subtle);
   }
 
-  .compare-card {
-    background: var(--wiom-bg-muted);
-    border-radius: var(--wiom-radius-large);
-    padding: var(--wiom-space-24);
+  .stages {
     display: flex;
     flex-direction: column;
-    gap: var(--wiom-space-16);
+    gap: var(--wiom-space-12);
+    position: relative;
   }
-  .compare-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  .stage {
+    border-radius: var(--wiom-radius-large);
+    padding: var(--wiom-space-16) var(--wiom-space-20, 20px);
+    display: flex;
+    align-items: center;
     gap: var(--wiom-space-16);
-    padding-bottom: var(--wiom-space-16);
-    border-bottom: 1px solid var(--wiom-stroke-subtle);
+    position: relative;
   }
-  .compare-col .label {
-    font-size: 0.8125rem;
+  .stage-indicator {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--wiom-radius-full);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+  }
+  .stage-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .stage-label {
+    font-size: 0.75rem;
     line-height: 1rem;
-    font-weight: 600;
-    color: var(--wiom-text-subtle);
-    margin-bottom: var(--wiom-space-4);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
-  .compare-col .value {
-    font-size: 1rem;
-    line-height: 1.375rem;
+  .stage-headline {
+    font-size: 1.0625rem;
+    line-height: 1.5rem;
     font-weight: 700;
     color: var(--wiom-text-default);
   }
-  .compare-col.now .value {
-    font-size: 1.5rem;
-    line-height: 2rem;
-    color: var(--wiom-text-brand);
-  }
-  @media (max-width: 480px) {
-    .compare-col.now .value { font-size: 1.25rem; line-height: 1.75rem; }
-  }
-  .compare-note {
+  .stage-sub {
     font-size: 0.875rem;
-    line-height: 1.375rem;
-    color: var(--wiom-text-default);
+    line-height: 1.25rem;
+    color: var(--wiom-text-subtle);
+  }
+
+  /* Stage 1 — पहले (muted/grey) */
+  .stage.before {
+    background: var(--wiom-bg-muted);
+  }
+  .stage.before .stage-indicator {
+    background: rgba(0,0,0,0.06);
+    color: var(--wiom-text-subtle);
+  }
+  .stage.before .stage-label { color: var(--wiom-text-subtle); }
+  .stage.before .stage-headline {
+    text-decoration: line-through;
+    text-decoration-color: var(--wiom-text-subtle);
+    color: var(--wiom-text-subtle);
+  }
+
+  /* Stage 2 — अब (brand pink, current state — most prominent) */
+  .stage.now {
+    background: var(--wiom-bg-brand-subtle);
+    box-shadow: 0 4px 16px rgba(217,0,141,0.08);
+  }
+  .stage.now .stage-indicator {
+    background: var(--wiom-bg-brand);
+    color: var(--wiom-text-on-brand);
+  }
+  .stage.now .stage-label { color: var(--wiom-text-brand); }
+  .stage.now .stage-headline {
+    color: var(--wiom-text-brand);
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  /* Stage 3 — उसके बाद (light purple, future) */
+  .stage.future {
+    background: #F1E5FF;
+  }
+  .stage.future .stage-indicator {
+    background: #6D17CE;
+    color: white;
+  }
+  .stage.future .stage-label { color: #6D17CE; }
+
+  .stage-arrow {
+    text-align: center;
+    color: var(--wiom-text-subtle);
+    font-size: 18px;
+    line-height: 1;
+    margin: -4px 0;
   }
 
   /* "2 महीने का समय" — highlighted card with numbered points */
@@ -367,39 +437,60 @@
 
       <!-- Hero -->
       <section class="hero">
-        <h1>नया ऐप नए सिस्टम पर लाइव है।</h1>
+        <h1>Wiom की नई ऐप आ गयी है</h1>
+        <p class="lead">Wiom system में काम करने के लिए ज़रूरी है।</p>
       </section>
 
-      <!-- Comparison block -->
-      <section class="change-block">
-        <h2>पैसे मिलने का तरीका बदला है</h2>
-        <p class="lead">नए सिस्टम में पैसे मिलने का तरीका बदला है। नीचे देखें कि पहले क्या था और अब क्या है।</p>
+      <!-- 3-stage payment progression -->
+      <section class="progression-block">
+        <h2>पैसे मिलने का तरीका</h2>
+        <p class="progression-intro">इस सिस्टम में पैसे मिलने का तरीका 3 stage में बदलता है:</p>
 
-        <div class="compare-card">
-          <div class="compare-row">
-            <div class="compare-col before">
-              <div class="label">पहले</div>
-              <div class="value">Lottery — हर installation पर अलग रकम</div>
-            </div>
-            <div class="compare-col now">
-              <div class="label">अब — 2 महीने तक</div>
-              <div class="value">₹[X] रोज़</div>
+        <div class="stages">
+          <!-- Stage 1: पहले -->
+          <div class="stage before">
+            <div class="stage-indicator">1</div>
+            <div class="stage-content">
+              <div class="stage-label">पहले</div>
+              <div class="stage-headline">Lottery</div>
+              <div class="stage-sub">हर install पर अलग-अलग रकम</div>
             </div>
           </div>
-          <p class="compare-note">यह रकम नए ऐप में हर रोज़ दिखेगी। 2 महीने बाद नया सिस्टम लागू होगा — उसकी जानकारी ऐप में मिलेगी।</p>
+          <div class="stage-arrow" aria-hidden="true">↓</div>
+
+          <!-- Stage 2: अब (current — prominent) -->
+          <div class="stage now">
+            <div class="stage-indicator">2</div>
+            <div class="stage-content">
+              <div class="stage-label">अब — 2 महीने तक</div>
+              <div class="stage-headline">₹[X] रोज़ — तय रकम</div>
+              <div class="stage-sub">रकम नए ऐप में हर रोज़ दिखेगी</div>
+            </div>
+          </div>
+          <div class="stage-arrow" aria-hidden="true">↓</div>
+
+          <!-- Stage 3: उसके बाद -->
+          <div class="stage future">
+            <div class="stage-indicator">3</div>
+            <div class="stage-content">
+              <div class="stage-label">उसके बाद</div>
+              <div class="stage-headline">CSP तय करेंगे</div>
+              <div class="stage-sub">काम के अनुसार आपका इनाम</div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- 2 month period card -->
+      <!-- 2 month operational guidance card -->
       <section class="month-card">
-        <h2>2 महीने का समय</h2>
+        <h2>2 महीने में आपको</h2>
 
         <ol class="numbered-list">
           <li>
             <p><strong>काम वही है</strong> — installation requests नए ऐप में मिलेंगी।</p>
           </li>
           <li>
-            <p>पैसे <strong>₹[X] रोज़</strong> मिलेंगे। रकम नए ऐप में दिखेगी।</p>
+            <p>रकम <strong>₹[X] रोज़</strong> नए ऐप में दिखेगी।</p>
           </li>
           <li>
             <p>ऐप खुद हर step पर दिखाएगा क्या करना है। अलग से सीखने की ज़रूरत नहीं — इस्तेमाल करते-करते समझ आ जाएगा।</p>
