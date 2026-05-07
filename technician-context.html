@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technician Context — पैसे मिलने का तरीका बदला है</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+  :root {
+    --wiom-bg-default:        #FAF9FC;
+    --wiom-bg-subtle:         #F1EDF7;
+    --wiom-bg-muted:          #E8E4F0;
+    --wiom-bg-brand:          #D9008D;
+    --wiom-bg-brand-hover:    #C00080;
+    --wiom-bg-brand-pressed:  #A30070;
+    --wiom-bg-brand-bold:     #443152;
+    --wiom-bg-brand-subtle:   #FFE5F6;
+
+    --wiom-text-default:      #161021;
+    --wiom-text-subtle:       #5C5570;
+    --wiom-text-on-brand:     #FFFFFF;
+    --wiom-text-brand:        #D9008D;
+    --wiom-text-inverse:      #FAF9FC;
+
+    --wiom-icon-action:       #352D42;
+    --wiom-icon-brand:        #D9008D;
+
+    --wiom-stroke-default:    #E8E4F0;
+    --wiom-stroke-subtle:     #D7D3E0;
+    --wiom-stroke-brand-focus:#D9008D;
+
+    --wiom-space-4:   4px;
+    --wiom-space-8:   8px;
+    --wiom-space-12:  12px;
+    --wiom-space-16:  16px;
+    --wiom-space-24:  24px;
+    --wiom-space-32:  32px;
+    --wiom-space-48:  48px;
+    --wiom-space-64:  64px;
+
+    --wiom-radius-medium:  12px;
+    --wiom-radius-large:   16px;
+    --wiom-radius-full:    9999px;
+
+    --wiom-stroke-small:   1px;
+    --wiom-stroke-medium:  2px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Noto Sans', -apple-system, system-ui, sans-serif;
+    background: var(--wiom-bg-default);
+    color: var(--wiom-text-default);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5;
+  }
+  .material-icons { user-select: none; vertical-align: middle; }
+
+  .container-narrow {
+    max-width: 680px;
+    margin-inline: auto;
+    width: 100%;
+  }
+  @media (max-width: 1023px) {
+    .container-narrow { padding-inline: var(--wiom-space-24); }
+  }
+  @media (max-width: 767px) {
+    .container-narrow { padding-inline: var(--wiom-space-16); }
+  }
+
+  /* Top nav */
+  .topnav {
+    background: var(--wiom-bg-default);
+    border-bottom: var(--wiom-stroke-small) solid var(--wiom-stroke-subtle);
+    padding: var(--wiom-space-16) 0;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .topnav-inner {
+    max-width: 680px;
+    margin-inline: auto;
+    padding-inline: var(--wiom-space-16);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--wiom-space-12);
+  }
+  @media (min-width: 768px) {
+    .topnav-inner { padding-inline: var(--wiom-space-24); }
+  }
+  .brand-block {
+    display: flex;
+    align-items: center;
+    gap: var(--wiom-space-12);
+  }
+  .brand {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--wiom-text-brand);
+  }
+  .role-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--wiom-text-subtle);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .help-link {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 700;
+    color: var(--wiom-text-brand);
+    text-decoration: none;
+  }
+
+  main {
+    flex: 1;
+    padding: var(--wiom-space-32) 0 var(--wiom-space-48);
+  }
+  @media (min-width: 768px) {
+    main { padding: var(--wiom-space-48) 0 var(--wiom-space-64); }
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wiom-space-32);
+  }
+
+  /* Hero */
+  .hero h1 {
+    font-size: 1.75rem;
+    line-height: 2.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--wiom-text-default);
+  }
+  @media (min-width: 768px) {
+    .hero h1 { font-size: 2.25rem; line-height: 2.75rem; }
+  }
+
+  /* "पैसे मिलने का तरीका बदला है" — comparison block */
+  .change-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wiom-space-12);
+  }
+  .change-block h2 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+    color: var(--wiom-text-default);
+  }
+  @media (min-width: 768px) {
+    .change-block h2 { font-size: 1.5rem; line-height: 2rem; }
+  }
+  .change-block .lead {
+    font-size: 0.9375rem;
+    line-height: 1.5rem;
+    color: var(--wiom-text-subtle);
+  }
+
+  .compare-card {
+    background: var(--wiom-bg-muted);
+    border-radius: var(--wiom-radius-large);
+    padding: var(--wiom-space-24);
+    display: flex;
+    flex-direction: column;
+    gap: var(--wiom-space-16);
+  }
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--wiom-space-16);
+    padding-bottom: var(--wiom-space-16);
+    border-bottom: 1px solid var(--wiom-stroke-subtle);
+  }
+  .compare-col .label {
+    font-size: 0.8125rem;
+    line-height: 1rem;
+    font-weight: 600;
+    color: var(--wiom-text-subtle);
+    margin-bottom: var(--wiom-space-4);
+  }
+  .compare-col .value {
+    font-size: 1rem;
+    line-height: 1.375rem;
+    font-weight: 700;
+    color: var(--wiom-text-default);
+  }
+  .compare-col.now .value {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    color: var(--wiom-text-brand);
+  }
+  @media (max-width: 480px) {
+    .compare-col.now .value { font-size: 1.25rem; line-height: 1.75rem; }
+  }
+  .compare-note {
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+    color: var(--wiom-text-default);
+  }
+
+  /* "2 महीने का समय" — highlighted card with numbered points */
+  .month-card {
+    background: var(--wiom-bg-brand-subtle);
+    border-radius: var(--wiom-radius-large);
+    padding: var(--wiom-space-24);
+    display: flex;
+    flex-direction: column;
+    gap: var(--wiom-space-16);
+  }
+  @media (min-width: 768px) {
+    .month-card { padding: var(--wiom-space-32); }
+  }
+  .month-card h2 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+    color: var(--wiom-text-default);
+  }
+  @media (min-width: 768px) {
+    .month-card h2 { font-size: 1.75rem; line-height: 2.25rem; }
+  }
+
+  .numbered-list {
+    list-style: none;
+    counter-reset: step;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wiom-space-16);
+    margin: 0;
+    padding: 0;
+  }
+  .numbered-list li {
+    counter-increment: step;
+    position: relative;
+    padding-left: 44px;
+    min-height: 32px;
+  }
+  .numbered-list li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 32px;
+    height: 32px;
+    background: var(--wiom-bg-brand);
+    color: var(--wiom-text-on-brand);
+    border-radius: var(--wiom-radius-full);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .numbered-list li p {
+    font-size: 0.9375rem;
+    line-height: 1.5rem;
+    color: var(--wiom-text-default);
+  }
+  .numbered-list li p strong { font-weight: 700; }
+
+  .ptl-action {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--wiom-space-8);
+    margin-top: var(--wiom-space-8);
+    padding: var(--wiom-space-8) var(--wiom-space-16);
+    background: var(--wiom-bg-default);
+    border: var(--wiom-stroke-small) solid var(--wiom-stroke-subtle);
+    border-radius: var(--wiom-radius-full);
+    color: var(--wiom-text-brand);
+    font-size: 0.9375rem;
+    line-height: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    min-height: 40px;
+  }
+  .ptl-action:hover { background: var(--wiom-bg-brand-subtle); }
+  .ptl-action .material-icons { font-size: 18px; color: var(--wiom-icon-brand); }
+
+  /* Primary CTA */
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--wiom-space-8);
+    width: 100%;
+    min-height: 48px;
+    padding: var(--wiom-space-12) var(--wiom-space-24);
+    background: var(--wiom-bg-brand);
+    color: var(--wiom-text-on-brand);
+    text-decoration: none;
+    border: none;
+    border-radius: var(--wiom-radius-large);
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: background 0.12s ease;
+    margin-top: var(--wiom-space-16);
+  }
+  .cta-primary:hover  { background: var(--wiom-bg-brand-hover); }
+  .cta-primary:active { background: var(--wiom-bg-brand-pressed); }
+  .cta-primary:focus-visible {
+    outline: var(--wiom-stroke-medium) solid var(--wiom-stroke-brand-focus);
+    outline-offset: 2px;
+  }
+  .cta-primary .material-icons { font-size: 20px; }
+
+  /* Footer */
+  footer {
+    background: var(--wiom-bg-brand-bold);
+    color: var(--wiom-text-inverse);
+    padding: var(--wiom-space-32) 0;
+    margin-top: var(--wiom-space-48);
+  }
+  @media (min-width: 768px) {
+    footer { padding: var(--wiom-space-48) 0; margin-top: var(--wiom-space-64); }
+  }
+  .footer-inner {
+    max-width: 680px;
+    margin-inline: auto;
+    padding-inline: var(--wiom-space-16);
+  }
+  @media (min-width: 768px) {
+    .footer-inner { padding-inline: var(--wiom-space-24); }
+  }
+  .footer-tagline {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 700;
+    color: var(--wiom-text-on-brand);
+  }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div class="topnav-inner">
+    <div class="brand-block">
+      <span class="brand">Wiom</span>
+      <span class="role-tag">Technician</span>
+    </div>
+    <a href="tel:7836811111" class="help-link">मदद</a>
+  </div>
+</header>
+
+<main>
+  <div class="container-narrow">
+    <div class="stack">
+
+      <!-- Hero -->
+      <section class="hero">
+        <h1>नया ऐप नए सिस्टम पर लाइव है।</h1>
+      </section>
+
+      <!-- Comparison block -->
+      <section class="change-block">
+        <h2>पैसे मिलने का तरीका बदला है</h2>
+        <p class="lead">नए सिस्टम में पैसे मिलने का तरीका बदला है। नीचे देखें कि पहले क्या था और अब क्या है।</p>
+
+        <div class="compare-card">
+          <div class="compare-row">
+            <div class="compare-col before">
+              <div class="label">पहले</div>
+              <div class="value">Lottery — हर installation पर अलग रकम</div>
+            </div>
+            <div class="compare-col now">
+              <div class="label">अब — 2 महीने तक</div>
+              <div class="value">₹[X] रोज़</div>
+            </div>
+          </div>
+          <p class="compare-note">यह रकम नए ऐप में हर रोज़ दिखेगी। 2 महीने बाद नया सिस्टम लागू होगा — उसकी जानकारी ऐप में मिलेगी।</p>
+        </div>
+      </section>
+
+      <!-- 2 month period card -->
+      <section class="month-card">
+        <h2>2 महीने का समय</h2>
+
+        <ol class="numbered-list">
+          <li>
+            <p><strong>काम वही है</strong> — installation requests नए ऐप में मिलेंगी।</p>
+          </li>
+          <li>
+            <p>पैसे <strong>₹[X] रोज़</strong> मिलेंगे। रकम नए ऐप में दिखेगी।</p>
+          </li>
+          <li>
+            <p>ऐप खुद हर step पर दिखाएगा क्या करना है। अलग से सीखने की ज़रूरत नहीं — इस्तेमाल करते-करते समझ आ जाएगा।</p>
+          </li>
+          <li>
+            <p>कोई सवाल या दिक्कत हो तो सहायता टीम उपलब्ध है।</p>
+            <a href="tel:7836811111" class="ptl-action">
+              <span class="material-icons" aria-hidden="true">call</span>
+              <span>78368-11111</span>
+            </a>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Final CTA → install flow -->
+      <a href="technician-install.html" class="cta-primary">
+        <span class="material-icons" aria-hidden="true">download</span>
+        <span>नया ऐप डाउनलोड करें</span>
+      </a>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-tagline">Wiom — रिचार्ज वाला घर का नेट</p>
+  </div>
+</footer>
+
+</body>
+</html>
