@@ -271,6 +271,18 @@
   }
   .stage.future .stage-label { color: #6D17CE; }
 
+  .you-are-here {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--wiom-text-brand);
+    background: white;
+    border: 1.5px solid var(--wiom-bg-brand);
+    border-radius: var(--wiom-radius-full);
+    padding: 4px 10px;
+    white-space: nowrap;
+  }
+
   .stage-arrow {
     text-align: center;
     color: var(--wiom-text-subtle);
@@ -469,9 +481,10 @@
             <div class="stage-indicator">2</div>
             <div class="stage-content">
               <div class="stage-label">अब — 2 महीने तक</div>
-              <div class="stage-headline">₹[X] रोज़ — तय रकम</div>
-              <div class="stage-sub">रकम नए ऐप में हर रोज़ दिखेगी</div>
+              <div class="stage-headline">₹[X] — तय रकम</div>
+              <div class="stage-sub">हर महीने के अंत में account में आएगी</div>
             </div>
+            <div class="you-are-here">✓ अभी यहाँ</div>
           </div>
           <div class="stage-arrow" aria-hidden="true">↓</div>
 
@@ -480,7 +493,7 @@
             <div class="stage-indicator">3</div>
             <div class="stage-content">
               <div class="stage-label">उसके बाद</div>
-              <div class="stage-headline">CSP तय करेंगे</div>
+              <div class="stage-headline">आपके मालिक तय करेंगे</div>
               <div class="stage-sub">काम के अनुसार आपका इनाम</div>
             </div>
           </div>
