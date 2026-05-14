@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Wiom · Belief Break Experience Mockups</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" />
+<style>
+  :root {
+    /* Wiom design tokens */
+    --brand-primary: #D9008D;
+    --brand-tint: #FFE5F6;
+    --bg-screen: #FAF9FC;
+    --bg-surface: #FFFFFF;
+    --text-primary: #161021;
+    --text-secondary: #5C5570;
+    --text-hint: #A7A1B2;
+    --text-on-brand: #FFFFFF;
+    --bg-disabled: #D7D3E0;
+    --state-positive: #008043;
+    --state-negative: #D92130;
+    --bg-positive: #E1FAED;
+    --bg-negative: #FFE5E7;
+    --stroke-primary: #E8E4F0;
+    --bg-page: #ECEAF2;
+    --pink-text: #863a0c;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; background: var(--bg-page); color: var(--text-primary);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 14px; line-height: 1.5;
+  }
+  body { padding: 32px 40px 80px; }
+
+  /* Hindi-aware text */
+  .hi {
+    font-family: "Noto Sans Devanagari", -apple-system, sans-serif;
+  }
+
+  header.page-head {
+    max-width: 1400px; margin: 0 auto 32px;
+    display: flex; align-items: baseline; gap: 24px; flex-wrap: wrap;
+  }
+  header.page-head h1 {
+    margin: 0; font-size: 28px; letter-spacing: -0.01em; font-weight: 700;
+  }
+  header.page-head .sub {
+    color: var(--text-secondary); font-size: 14px;
+  }
+  header.page-head .pill {
+    background: var(--brand-tint); color: var(--brand-primary); padding: 4px 12px;
+    border-radius: 999px; font-size: 12px; font-weight: 600;
+  }
+
+  main { max-width: 1400px; margin: 0 auto; }
+
+  /* Case section */
+  .case {
+    background: white; border-radius: 16px; padding: 28px 32px 32px;
+    margin-bottom: 28px; border: 1px solid var(--stroke-primary);
+  }
+  .case h2 {
+    margin: 0 0 6px; font-size: 22px; font-weight: 700;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .case h2 .id {
+    color: var(--brand-primary); font-family: "Inter", monospace; font-size: 18px;
+  }
+  .case h2 .lock-pill {
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--bg-positive); color: var(--state-positive); padding: 2px 10px;
+    border-radius: 999px; font-weight: 700;
+  }
+  .case h2 .pending-pill {
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    background: #fff3cd; color: #92400e; padding: 2px 10px;
+    border-radius: 999px; font-weight: 700;
+  }
+  .case h2 .draft-pill {
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    background: #e0e7ff; color: #3730a3; padding: 2px 10px;
+    border-radius: 999px; font-weight: 700;
+  }
+  .case-meta {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    margin: 16px 0 24px; font-size: 13px;
+  }
+  .case-meta > div {
+    background: var(--bg-page); padding: 12px 14px; border-radius: 8px;
+    border-left: 3px solid var(--stroke-primary);
+  }
+  .case-meta > div b {
+    display: block; font-size: 11px; letter-spacing: 0.06em;
+    color: var(--text-secondary); text-transform: uppercase; margin-bottom: 2px;
+  }
+  .case-meta .trigger { border-left-color: var(--brand-primary); }
+  .case-meta .old { border-left-color: var(--state-negative); }
+  .case-meta .new { border-left-color: var(--state-positive); }
+
+  .case-note {
+    background: #fff3cd; border-left: 3px solid #b85c00; padding: 10px 14px;
+    border-radius: 6px; font-size: 13px; margin-bottom: 20px;
+  }
+  .case-note b { color: #92400e; font-weight: 700; }
+
+  /* Phones row */
+  .phones {
+    display: flex; gap: 18px; overflow-x: auto; padding-bottom: 8px;
+  }
+  .phone-wrap { flex: 0 0 auto; }
+  .phone-label {
+    text-align: center; font-size: 11px; letter-spacing: 0.08em;
+    color: var(--text-secondary); text-transform: uppercase;
+    font-weight: 600; margin-bottom: 8px;
+  }
+  .phone-label.right { color: var(--state-positive); }
+  .phone-label.wrong { color: var(--state-negative); }
+
+  /* Phone frame */
+  .phone {
+    width: 300px; height: 640px; background: var(--bg-screen);
+    border-radius: 36px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    border: 8px solid #1a1a1a; position: relative;
+    display: flex; flex-direction: column;
+  }
+  .phone .status-bar {
+    height: 28px; padding: 6px 18px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; font-weight: 600; flex-shrink: 0;
+  }
+  .phone.pink-bg .status-bar { background: var(--brand-tint); }
+  .phone .status-bar .icons {
+    display: flex; gap: 4px; align-items: center; font-size: 11px;
+  }
+  .phone .gesture-bar {
+    height: 14px; flex-shrink: 0;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .phone .gesture-bar::after {
+    content: ""; width: 88px; height: 4px; background: #1a1a1a; border-radius: 2px;
+  }
+
+  /* Pink top */
+  .pink-top {
+    background: var(--brand-tint); display: flex; justify-content: center;
+    align-items: flex-end; padding-bottom: 16px; flex-shrink: 0;
+  }
+  .pink-top.large { height: 32%; }
+  .pink-top.small { height: 18%; }
+  .icon-circle {
+    background: var(--bg-surface); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .icon-circle.large { width: 76px; height: 76px; }
+  .icon-circle.small { width: 52px; height: 52px; }
+  .icon-circle .material-icons { color: var(--brand-primary); }
+  .icon-circle.large .material-icons { font-size: 38px; }
+  .icon-circle.small .material-icons { font-size: 26px; }
+
+  /* Content area */
+  .content {
+    flex: 1; display: flex; flex-direction: column; padding: 22px 18px 18px;
+    overflow: hidden;
+  }
+  .content .title {
+    font-size: 21px; line-height: 1.18; font-weight: 700; color: var(--text-primary);
+    margin: 0 0 12px;
+  }
+  .content .body {
+    font-size: 13.5px; line-height: 1.65; color: var(--text-secondary);
+    margin: 0 0 12px;
+  }
+  .content .body-list {
+    list-style: none; padding-left: 0; margin: 0 0 12px;
+  }
+  .content .body-list li {
+    position: relative; padding-left: 18px; margin-bottom: 10px;
+    font-size: 13.5px; line-height: 1.55; color: var(--text-secondary);
+  }
+  .content .body-list li::before {
+    content: "•"; position: absolute; left: 0; top: -2px;
+    color: var(--brand-primary); font-weight: 700; font-size: 20px;
+  }
+  .content .body-list li b {
+    color: var(--text-primary); font-weight: 600;
+  }
+  .content .question {
+    font-size: 17px; line-height: 1.3; font-weight: 700; color: var(--text-primary);
+    margin: 0 0 14px;
+  }
+  .content .question.dim {
+    font-size: 15px; font-weight: 600; color: var(--text-secondary);
+    margin-bottom: 10px;
+  }
+  .content .spacer { flex: 1; }
+  .content .cta {
+    background: var(--brand-primary); color: var(--text-on-brand);
+    border: none; border-radius: 10px; padding: 12px;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    width: 100%; min-height: 44px;
+    font-family: "Noto Sans Devanagari", "Inter", sans-serif;
+  }
+  .content .cta.disabled {
+    background: var(--bg-disabled); color: var(--text-hint); cursor: not-allowed;
+  }
+
+  /* Quiz options */
+  .opt {
+    border: 1.5px solid var(--stroke-primary); background: var(--bg-surface);
+    border-radius: 10px; padding: 11px 14px; margin-bottom: 7px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: var(--text-primary);
+  }
+  .opt .radio {
+    width: 16px; height: 16px; border: 2px solid var(--text-hint);
+    border-radius: 50%; flex-shrink: 0;
+  }
+  .opt.selected {
+    border-color: var(--brand-primary); background: var(--brand-tint);
+    font-weight: 600;
+  }
+  .opt.selected .radio {
+    background: var(--brand-primary); border-color: var(--brand-primary);
+    box-shadow: inset 0 0 0 3px white;
+  }
+  .opt.correct {
+    border-color: var(--state-positive); background: var(--bg-positive);
+    font-weight: 600;
+  }
+  .opt.correct .radio {
+    background: var(--state-positive); border-color: var(--state-positive);
+    box-shadow: inset 0 0 0 3px white;
+  }
+  .opt.wrong-pick {
+    border-color: var(--state-negative); background: var(--bg-negative);
+    font-weight: 600;
+  }
+  .opt.wrong-pick .radio {
+    background: var(--state-negative); border-color: var(--state-negative);
+    box-shadow: inset 0 0 0 3px white;
+  }
+
+  /* Correction box */
+  .correction-box {
+    background: var(--bg-positive); border-radius: 10px; padding: 12px 14px;
+    color: var(--state-positive); font-size: 12.5px; line-height: 1.55;
+    font-weight: 600; margin: 12px 0;
+  }
+
+  /* Right answer state */
+  .right-stack {
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+    align-items: center; padding: 20px;
+  }
+  .check-big {
+    width: 76px; height: 76px; background: var(--state-positive);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+  }
+  .check-big .material-icons { color: white; font-size: 46px; }
+  .right-stack h3 {
+    margin: 0; font-size: 22px; font-weight: 700; color: var(--state-positive);
+  }
+  .right-stack .auto-dismiss {
+    margin-top: 10px; font-size: 11px; color: var(--text-secondary);
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  /* Footer */
+  footer.notes {
+    max-width: 1400px; margin: 32px auto 0; padding: 24px 28px;
+    background: white; border-radius: 12px; border: 1px solid var(--stroke-primary);
+  }
+  footer.notes h3 {
+    margin: 0 0 12px; font-size: 15px; font-weight: 700;
+  }
+  footer.notes ul { padding-left: 20px; margin: 0; font-size: 13px; line-height: 1.7; }
+  footer.notes ul li b { color: var(--brand-primary); }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .case-meta { grid-template-columns: 1fr; }
+    body { padding: 16px; }
+    .case { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<main>
+
+<!-- ─────────────────────────── A1 ─────────────────────────── -->
+<section class="case">
+  <h2><span class="id">A1</span> First Carry Fee Debit <span class="lock-pill">Locked v1.5</span></h2>
+  
+  
+  <div class="phones">
+
+    <!-- A1 Inform -->
+    <div class="phone-wrap">
+      <div class="phone-label">Inform</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top large"><div class="icon-circle large"><span class="material-icons">router</span></div></div>
+        <div class="content">
+          <div class="title hi">Carry fee लगना शुरू हो गया है</div>
+          <ul class="body-list hi">
+            <li>आज से हर दिन ₹2/दिन carry fee कटना शुरू हो गया है</li>
+            <li>एक NetBox आपके पास 15 दिन से ऊपर से रखा हुआ है</li>
+            <li>वो NetBox Wiom को वापस भेजें</li>
+          </ul>
+          <div class="spacer"></div>
+          <button class="cta hi">ठीक है</button>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+    <!-- A1 Quiz -->
+    <div class="phone-wrap">
+      <div class="phone-label">Quiz</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top small"><div class="icon-circle small"><span class="material-icons">router</span></div></div>
+        <div class="content">
+          <div class="question hi">इस शुल्क को रोकने के लिए क्या करना है?</div>
+          <div class="opt"><span class="radio"></span><span class="hi">कुछ नहीं — Wiom अपने आप रोक देगा</span></div>
+          <div class="opt selected"><span class="radio"></span><span class="hi">NetBox install करें या Wiom को वापस भेज दीजिए</span></div>
+          <div class="opt"><span class="radio"></span><span class="hi">सिर्फ़ install करना है</span></div>
+          <div class="spacer"></div>
+          <button class="cta hi">जवाब दें</button>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+    <!-- A1 Right -->
+    <div class="phone-wrap">
+      <div class="phone-label right">Answered Right</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top small"><div class="icon-circle small"><span class="material-icons">router</span></div></div>
+        <div class="content">
+          <div class="right-stack">
+            <div class="check-big"><span class="material-icons">check</span></div>
+            <h3 class="hi">सही</h3>
+            <div class="auto-dismiss">auto-dismiss · 1.5s</div>
+          </div>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+    <!-- A1 Wrong -->
+    <div class="phone-wrap">
+      <div class="phone-label wrong">Answered Wrong</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top small"><div class="icon-circle small"><span class="material-icons">router</span></div></div>
+        <div class="content">
+          <div class="question dim hi">इस शुल्क को रोकने के लिए क्या करना है?</div>
+          <div class="opt wrong-pick"><span class="radio"></span><span class="hi">कुछ नहीं — Wiom अपने आप रोक देगा</span></div>
+          <div class="opt correct"><span class="radio"></span><span class="hi">NetBox install करें या Wiom को वापस भेज दीजिए</span></div>
+          <div class="opt"><span class="radio"></span><span class="hi">सिर्फ़ install करना है</span></div>
+          <div class="correction-box hi">सही जवाब: शुल्क रोकने के दो रास्ते हैं — NetBox ग्राहक के घर install करें या Wiom को वापस भेज दीजिए। दोनों ही काम करेंगे — कोई भी एक कीजिए, शुल्क आज ही रुक जाएगा।</div>
+          <div class="spacer"></div>
+          <button class="cta hi">ठीक है</button>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────────────────────────── A4 ─────────────────────────── -->
+<section class="case">
+  <h2><span class="id">A4</span> First Successful Pickup Completion <span class="lock-pill">Locked v1.5</span></h2>
+  
+  
+  <div class="phones">
+
+    <div class="phone-wrap">
+      <div class="phone-label">Inform</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top large"><div class="icon-circle large"><span class="material-icons">local_shipping</span></div></div>
+        <div class="content">
+          <div class="title hi">Pickup पूरी हुई, ₹50 मिल गए</div>
+          <ul class="body-list hi">
+            <li>अब NetBox के हर pickup पर ₹50 मिलेंगे</li>
+          </ul>
+          <div class="spacer"></div>
+          <button class="cta hi">ठीक है</button>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone-label">Quiz</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top small"><div class="icon-circle small"><span class="material-icons">local_shipping</span></div></div>
+        <div class="content">
+          <div class="question hi">अगली pickup पर भी ₹50 मिलेंगे?</div>
+          <div class="opt"><span class="radio"></span><span class="hi">नहीं — पहली बार का bonus था</span></div>
+          <div class="opt selected"><span class="radio"></span><span class="hi">हाँ — हर successful pickup पर automatic</span></div>
+          <div class="opt"><span class="radio"></span><span class="hi">हाँ, लेकिन Wiom से माँगने पर</span></div>
+          <div class="spacer"></div>
+          <button class="cta hi">जवाब दें</button>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone-label right">Answered Right</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top small"><div class="icon-circle small"><span class="material-icons">local_shipping</span></div></div>
+        <div class="content">
+          <div class="right-stack">
+            <div class="check-big"><span class="material-icons">check</span></div>
+            <h3 class="hi">सही</h3>
+            <div class="auto-dismiss">auto-dismiss · 1.5s</div>
+          </div>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone-label wrong">Answered Wrong</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top small"><div class="icon-circle small"><span class="material-icons">local_shipping</span></div></div>
+        <div class="content">
+          <div class="question dim hi">अगली pickup पर भी ₹50 मिलेंगे?</div>
+          <div class="opt wrong-pick"><span class="radio"></span><span class="hi">नहीं — पहली बार का bonus था</span></div>
+          <div class="opt correct"><span class="radio"></span><span class="hi">हाँ — हर successful pickup पर automatic</span></div>
+          <div class="opt"><span class="radio"></span><span class="hi">हाँ, लेकिन Wiom से माँगने पर</span></div>
+          <div class="correction-box hi">सही जवाब: हर successful NetBox pickup पर ₹50 automatic आपके account में आ जाएँगे। माँगने की ज़रूरत नहीं — Wiom खुद हर बार जोड़ देता है। आज जो आए, वो हर बार आएँगे।</div>
+          <div class="spacer"></div>
+          <button class="cta hi">ठीक है</button>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────────────────────────── A3 ─────────────────────────── -->
+<section class="case">
+  <h2><span class="id">A3</span> First Successful Connection Activation <span class="lock-pill">Locked v1.5</span></h2>
+  
+  
+  <div class="phones">
+
+    <div class="phone-wrap">
+      <div class="phone-label">Inform</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top large"><div class="icon-circle large"><span class="material-icons">signal_cellular_alt</span></div></div>
+        <div class="content">
+          <div class="title hi">Connection सही से लगा — ₹300 मिल गया</div>
+          <ul class="body-list hi">
+            <li>PayG plan के हर successful connection पर आपको ₹300 fixed मिल जाएँगे</li>
+          </ul>
+          <div class="spacer"></div>
+          <button class="cta hi">ठीक है</button>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone-label">Quiz</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top small"><div class="icon-circle small"><span class="material-icons">signal_cellular_alt</span></div></div>
+        <div class="content">
+          <div class="question hi">अगला connection activate करने पर भी ₹300 मिलेंगे?</div>
+          <div class="opt"><span class="radio"></span><span class="hi">नहीं — पहले activation का bonus था</span></div>
+          <div class="opt selected"><span class="radio"></span><span class="hi">हाँ — हर successful activation पर automatic</span></div>
+          <div class="opt"><span class="radio"></span><span class="hi">हाँ, लेकिन Wiom से माँगने पर</span></div>
+          <div class="spacer"></div>
+          <button class="cta hi">जवाब दें</button>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone-label right">Answered Right</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top small"><div class="icon-circle small"><span class="material-icons">signal_cellular_alt</span></div></div>
+        <div class="content">
+          <div class="right-stack">
+            <div class="check-big"><span class="material-icons">check</span></div>
+            <h3 class="hi">सही</h3>
+            <div class="auto-dismiss">auto-dismiss · 1.5s</div>
+          </div>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone-label wrong">Answered Wrong</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top small"><div class="icon-circle small"><span class="material-icons">signal_cellular_alt</span></div></div>
+        <div class="content">
+          <div class="question dim hi">अगला connection activate करने पर भी ₹300 मिलेंगे?</div>
+          <div class="opt wrong-pick"><span class="radio"></span><span class="hi">नहीं — पहले activation का bonus था</span></div>
+          <div class="opt correct"><span class="radio"></span><span class="hi">हाँ — हर successful activation पर automatic</span></div>
+          <div class="opt"><span class="radio"></span><span class="hi">हाँ, लेकिन Wiom से माँगने पर</span></div>
+          <div class="correction-box hi">सही जवाब: हर successful connection activation पर ₹300 automatic आपके account में आ जाते हैं। माँगने की ज़रूरत नहीं — Wiom खुद हर बार जोड़ देता है। आज जो आए, वो हर बार आएँगे।</div>
+          <div class="spacer"></div>
+          <button class="cta hi">ठीक है</button>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────────────────────────── A2 ─────────────────────────── -->
+<section class="case">
+  <h2><span class="id">A2</span> First Earnings Credited (Withdrawal Rules) <span class="lock-pill">Inform Locked</span></h2>
+  
+  
+  <div class="phones">
+
+    <div class="phone-wrap">
+      <div class="phone-label">Inform</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top large"><div class="icon-circle large"><span class="material-icons">account_balance_wallet</span></div></div>
+        <div class="content">
+          <div class="title hi">पहली कमाई आपके wallet में आ गई</div>
+          <ul class="body-list hi">
+            <li>पैसे हफ़्ते में दो दिन ही निकाल सकते हैं। मंगलवार और शुक्रवार।</li>
+            <li>यह नियम आपकी कमाई को safe रखता है</li>
+          </ul>
+          <div class="spacer"></div>
+          <button class="cta hi">ठीक है</button>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone-label">Quiz</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top small"><div class="icon-circle small"><span class="material-icons">account_balance_wallet</span></div></div>
+        <div class="content">
+          <div class="question hi">पैसे कब निकाल सकते हैं?</div>
+          <div class="opt"><span class="radio"></span><span class="hi">जब चाहें, कभी भी</span></div>
+          <div class="opt selected"><span class="radio"></span><span class="hi">हफ़्ते में 2 बार, तय दिनों पर</span></div>
+          <div class="opt"><span class="radio"></span><span class="hi">हर महीने के अंत में</span></div>
+          <div class="spacer"></div>
+          <button class="cta hi">जवाब दें</button>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone-label right">Answered Right</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top small"><div class="icon-circle small"><span class="material-icons">account_balance_wallet</span></div></div>
+        <div class="content">
+          <div class="right-stack">
+            <div class="check-big"><span class="material-icons">check</span></div>
+            <h3 class="hi">सही</h3>
+            <div class="auto-dismiss">auto-dismiss · 1.5s</div>
+          </div>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone-label wrong">Answered Wrong</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top small"><div class="icon-circle small"><span class="material-icons">account_balance_wallet</span></div></div>
+        <div class="content">
+          <div class="question dim hi">पैसे कब निकाल सकते हैं?</div>
+          <div class="opt wrong-pick"><span class="radio"></span><span class="hi">जब चाहें, कभी भी</span></div>
+          <div class="opt correct"><span class="radio"></span><span class="hi">हफ़्ते में 2 बार, तय दिनों पर</span></div>
+          <div class="opt"><span class="radio"></span><span class="hi">हर महीने के अंत में</span></div>
+          <div class="correction-box hi">सही जवाब: हफ़्ते में 2 बार, तय दिनों पर ही पैसे निकाल सकते हैं। बाकी दिनों में withdraw button काम नहीं करेगा। यह नियम आपकी कमाई को safe रखने के लिए है।</div>
+          <div class="spacer"></div>
+          <button class="cta hi">ठीक है</button>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────────────────────────── A5 ─────────────────────────── -->
+<section class="case">
+  <h2><span class="id">A5</span> First Quality Evaluation <span class="lock-pill">Inform Locked</span></h2>
+  
+  
+  <div class="phones">
+
+    <div class="phone-wrap">
+      <div class="phone-label">Inform</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top large"><div class="icon-circle large"><span class="material-icons">star</span></div></div>
+        <div class="content">
+          <div class="title hi">आपका quality score active हो गया</div>
+          <ul class="body-list hi">
+            <li>हर task पर आपका काम quality score बनाता है</li>
+            <li>अच्छा score = बोनस ज़्यादा + नया काम ज़्यादा</li>
+            <li>कमज़ोर score = बोनस कम + काम कम</li>
+          </ul>
+          <div class="spacer"></div>
+          <button class="cta hi">ठीक है</button>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone-label">Quiz</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top small"><div class="icon-circle small"><span class="material-icons">star</span></div></div>
+        <div class="content">
+          <div class="question hi">Quality score का असर क्या है?</div>
+          <div class="opt"><span class="radio"></span><span class="hi">कुछ भी नहीं — काम तो मिलेगा ही</span></div>
+          <div class="opt selected"><span class="radio"></span><span class="hi">बोनस और नया काम दोनों पर</span></div>
+          <div class="opt"><span class="radio"></span><span class="hi">सिर्फ़ बोनस पर, काम पर नहीं</span></div>
+          <div class="spacer"></div>
+          <button class="cta hi">जवाब दें</button>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone-label right">Answered Right</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top small"><div class="icon-circle small"><span class="material-icons">star</span></div></div>
+        <div class="content">
+          <div class="right-stack">
+            <div class="check-big"><span class="material-icons">check</span></div>
+            <h3 class="hi">सही</h3>
+            <div class="auto-dismiss">auto-dismiss · 1.5s</div>
+          </div>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone-label wrong">Answered Wrong</div>
+      <div class="phone pink-bg">
+        <div class="status-bar"><span>9:41</span><span class="icons">📶 📶 🔋</span></div>
+        <div class="pink-top small"><div class="icon-circle small"><span class="material-icons">star</span></div></div>
+        <div class="content">
+          <div class="question dim hi">Quality score का असर क्या है?</div>
+          <div class="opt wrong-pick"><span class="radio"></span><span class="hi">कुछ भी नहीं — काम तो मिलेगा ही</span></div>
+          <div class="opt correct"><span class="radio"></span><span class="hi">बोनस और नया काम दोनों पर</span></div>
+          <div class="opt"><span class="radio"></span><span class="hi">सिर्फ़ बोनस पर, काम पर नहीं</span></div>
+          <div class="correction-box hi">सही जवाब: Quality score दोनों चीज़ों पर सीधा असर करता है — बोनस की राशि भी, और नया काम कितना मिलेगा वो भी। हर task पर अच्छा काम करना ही असली रास्ता है।</div>
+          <div class="spacer"></div>
+          <button class="cta hi">ठीक है</button>
+        </div>
+        <div class="gesture-bar"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+
+
+</body>
+</html>
